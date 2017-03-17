@@ -6,14 +6,14 @@ public class Tournament {
 
 	private ArrayList<Team> teams;
 	private int year;
-	private Round[] rounds;
+	private ArrayList<Round> rounds;
 
 	/**
 	 * Constructor with args
 	 * 
 	 * @param rounds
 	 */
-	public Tournament(ArrayList<Team> teams, int year, Round[] rounds) {
+	public Tournament(ArrayList<Team> teams, int year, ArrayList<Round> rounds) {
 		this.setTeams(teams);
 		this.setYear(year);
 		this.setRounds(rounds);
@@ -61,7 +61,7 @@ public class Tournament {
 	 * 
 	 * @return
 	 */
-	public Round[] getRounds() {
+	public ArrayList<Round> getRounds() {
 		return rounds;
 	}
 
@@ -70,7 +70,7 @@ public class Tournament {
 	 * 
 	 * @param rounds
 	 */
-	public void setRounds(Round[] rounds) {
+	public void setRounds(ArrayList<Round> rounds) {
 		this.rounds = rounds;
 	}
 

@@ -16,50 +16,36 @@ import java.util.Collections;
 
 public class FixtureGenerator {
 
-	private Tournament tournament;
+	public Tournament generateFixtures(int numberOfRounds, int year, ArrayList<Team> teams) {
+		
+		
+		ArrayList<Round> roundList = new ArrayList<>();
 
-	/**
-	 * Constructor with args
-	 * 
-	 * @param teams
-	 */
-	public FixtureGenerator(Tournament tournament) {
-		this.setTournament(tournament);
-	}
+		// randomly shuffle teams
+		Collections.shuffle(teams);
 
-	/**
-	 * Getter for Tournament
-	 * 
-	 * @return
-	 */
-	public Tournament getTournament() {
-		return tournament;
-	}
+		// generate first fixture
+		roundList.add(this.createARound(teams));
 
-	/**
-	 * Setter for Tournament
-	 * 
-	 * @return
-	 */
-	public void setTournament(Tournament tournament) {
-		this.tournament = tournament;
-	}
+		// each loop, reorder the list of teams by moving the last team to the front and then generate another round of fixtures
+		for (int i = 0; i < numberOfRounds - 1; i++) {
+			Team movingTeam = teams.get((teams.size()) - 1);
+			teams.remove(movingTeam);
+			teams.add(1, movingTeam);
 
-	public void generateFixtures() {
-		ArrayList<Team> teams1 = (ArrayList<Team>) this.tournament.getTeams().clone();
-		ArrayList<Team> teams2 = (ArrayList<Team>) this.tournament.getTeams().clone();
-
-		Collections.shuffle(teams1);
-		Collections.shuffle(teams2);
-
-		for (Team t : teams1) {
-			System.out.print(t.getName() + " ");
-		}
-		System.out.println(" ");
-		for (Team t : teams2) {
-			System.out.print(t.getName() +" ");
+			roundList.add(this.createARound(teams));
 		}
 
+		return new Tournament(teams, year, roundList);
+	}
+	
+
+	public Round createARound(ArrayList<Team> teams) {
+		
+		return new Round(new Fixture(teams.get(0), teams.get(5)),
+				new Fixture(teams.get(1), teams.get(4)), new Fixture(teams
+						.get(2), teams.get(3)));
+		
 	}
 
 }

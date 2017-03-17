@@ -95,5 +95,10 @@ public class Round {
 		this.number = number;
 	}
 	
+	public void printFixtures(){
+		System.out.println(fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName());
+		System.out.println(fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName());
+		System.out.println(fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName());
+	}
 
 }

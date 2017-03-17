@@ -31,14 +31,16 @@ public class Application {
 		teams.add(wales);
 		teams.add(italy);
 		
-		Round[] rounds = new Round[5];
-
-		Tournament testTournament = new Tournament(teams, 2017, rounds );
-		
-		FixtureGenerator fg = new FixtureGenerator(testTournament);
-		fg.generateFixtures();
-		
-
+		FixtureGenerator fg = new FixtureGenerator();
+		Tournament testTournament = fg.generateFixtures(5, 2017, teams);
+		ArrayList<Round> tournamentRounds = testTournament.getRounds();
+		int roundNo = 1;
+		for(Round r : tournamentRounds){
+			System.out.println("Round "+roundNo);
+			r.printFixtures();
+			System.out.println();
+			roundNo++;
+		}
 	}
 
 }

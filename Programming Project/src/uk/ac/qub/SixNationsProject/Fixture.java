@@ -3,20 +3,17 @@ package uk.ac.qub.SixNationsProject;
 public class Fixture {
 
 	private Team team1, team2;
-	private Round round;
 
 	/**
 	 * Constructor with args
 	 * 
 	 * @param team1
 	 * @param team2
-	 * @param round
 	 */
 
-	public Fixture(Team team1, Team team2, Round round) {
+	public Fixture(Team team1, Team team2) {
 		this.setTeam1(team1);
 		this.setTeam2(team2);
-		this.setRound(round);
 	}
 
 	/**
@@ -55,24 +52,6 @@ public class Fixture {
 
 	public void setTeam2(Team team2) {
 		this.team2 = team2;
-	}
-
-	/**
-	 * Getter for Round
-	 * 
-	 * @return
-	 */
-	public Round getRound() {
-		return round;
-	}
-
-	/**
-	 * Setter for Round
-	 * 
-	 * @return
-	 */
-	public void setRound(Round round) {
-		this.round = round;
 	}
 
 }
