@@ -9,7 +9,7 @@ package uk.ac.qub.SixNationsProject;
  */
 public class Team {
 
-	private String name;
+	private TeamName name;
 
 	/**
 	 * constructor with args
@@ -17,7 +17,7 @@ public class Team {
 	 * @param name
 	 */
 
-	public Team(String name) {
+	public Team(TeamName name) {
 		this.setName(name);
 
 	}
@@ -27,7 +27,7 @@ public class Team {
 	 * 
 	 * @return
 	 */
-	public String getName() {
+	public TeamName getName() {
 		return name;
 	}
 
@@ -37,7 +37,7 @@ public class Team {
 	 * @return
 	 */
 
-	public void setName(String name) {
+	public void setName(TeamName name) {
 		this.name = name;
 	}
 }

@@ -36,7 +36,7 @@ public class FixtureGenerator {
 		Collections.shuffle(teams);
 
 		// generate first round of fixtures
-		roundList.add(this.createARound(teams));
+		roundList.add(this.createARound(teams,1));
 
 		// each loop, reorder the list of teams by moving the last team to the front and then generate another round of fixtures
 		for (int i = 0; i < numberOfRounds - 1; i++) {
@@ -45,7 +45,7 @@ public class FixtureGenerator {
 			teams.remove(movingTeam);
 			teams.add(1, movingTeam);
 
-			roundList.add(this.createARound(teams));
+			roundList.add(this.createARound(teams,i+2));
 		}
 
 		return new Tournament(teams, year, roundList);
@@ -53,15 +53,15 @@ public class FixtureGenerator {
 	
 
 	/**
-	 * This method takes an ArrayList of teams and creates 3 fixtures, pairing teams based on their position within the ArrayList
-	 * @param teams
-	 * @return
+	 * This method takes an ArrayList of teams and creates 3 fixtures, 
+	 * pairing teams based on their position within the ArrayList @param teams
+	 * @return new Round
 	 */
-	public Round createARound(ArrayList<Team> teams) {
+	public Round createARound(ArrayList<Team> teams, int roundNumber) {
 		
 		return new Round(new Fixture(teams.get(0), teams.get(5)),
 				new Fixture(teams.get(1), teams.get(4)), new Fixture(teams
-						.get(2), teams.get(3)));
+						.get(2), teams.get(3)), roundNumber);
 		
 	}
 
