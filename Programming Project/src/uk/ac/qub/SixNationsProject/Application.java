@@ -15,7 +15,9 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		
+		System.out.println("Laura testing\n");
+		
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
 		Team england = new Team(TeamName.ENGLAND);
