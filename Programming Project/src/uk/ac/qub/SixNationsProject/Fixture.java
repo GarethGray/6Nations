@@ -64,8 +64,8 @@ public class Fixture {
 		this.team1 = team2;
 		this.team2 = temp;
 	}
-<<<<<<< HEAD
 
+	
 	public int getFixtureNumber() {
 		return fixtureNumber;
 	}
@@ -73,7 +73,6 @@ public class Fixture {
 	public void setFixtureNumber(int fixtureNumber) {
 		this.fixtureNumber = fixtureNumber;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/GarethGray/6Nations
+
 
 }
