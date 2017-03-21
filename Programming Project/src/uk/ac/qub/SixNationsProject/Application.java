@@ -16,7 +16,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		
+		System.out.println("Aine");
 
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
