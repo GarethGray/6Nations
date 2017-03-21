@@ -16,8 +16,12 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
+<<<<<<< HEAD
 		System.out.println("From each according to his ability to each according to his need");
 		System.out.println("Laura got is workingngkj");
+=======
+		System.out.println("Aine woz ere k");
+>>>>>>> branch 'master' of https://github.com/GarethGray/6Nations
 
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
