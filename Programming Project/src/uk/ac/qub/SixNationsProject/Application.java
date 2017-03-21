@@ -38,6 +38,12 @@ public class Application {
 		for(Round r : tournamentRounds){
 			r.printFixtures();
 		}
+		
+		Match match1 = new Match(tournamentRounds.get(0),
+				tournamentRounds.get(0).getFixture1().getTeam1(), 7, 20,
+				tournamentRounds.get(0).getFixture1().getTeam2(), 6, 47);
+		
+		match1.printMatchScores();
 	}
 
 }
