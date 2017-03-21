@@ -17,6 +17,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		System.out.println("From each according to his ability to each according to his need");
+		System.out.println("Laura got is workingngkj");
 
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
