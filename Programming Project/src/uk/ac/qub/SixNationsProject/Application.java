@@ -39,11 +39,18 @@ public class Application {
 			r.printFixtures();
 		}
 		
-		Result match1 = new Result(tournamentRounds.get(0), tournamentRounds.get(0).getFixture1(),
+		Result match1result = new Result(tournamentRounds.get(0), tournamentRounds.get(0).getFixture1(),
 				tournamentRounds.get(0).getFixture1().getTeam1(), 7, 20,
 				tournamentRounds.get(0).getFixture1().getTeam2(), 6, 47);
 		
-		match1.printMatchScores();
+		match1result.printMatchScores();
+		System.out.println();
+		
+		Result match2result = new Result(tournamentRounds.get(0), tournamentRounds.get(0).getFixture2(),
+				tournamentRounds.get(0).getFixture2().getTeam1(), 0, 0,
+				tournamentRounds.get(0).getFixture2().getTeam2(), 0, 0);
+			
+		match2result.printMatchScores();
 	}
 
 }

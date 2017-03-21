@@ -18,7 +18,7 @@ public class Tournament {
 		this.setYear(year);
 		this.setRounds(rounds);
 	}
-
+	
 	/**
 	 * Getter for teams
 	 * 
