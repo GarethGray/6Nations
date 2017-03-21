@@ -3,6 +3,8 @@
  */
 package uk.ac.qub.SixNationsProject;
 
+import java.util.ArrayList;
+
 /**
  * @author 40189322
  *
@@ -10,6 +12,7 @@ package uk.ac.qub.SixNationsProject;
 public class Round {
 
 	private Fixture fixture1, fixture2, fixture3;
+	private ArrayList<Fixture> fixtures = new ArrayList<>();
 	private int number;
 	
 	/**
@@ -18,11 +21,13 @@ public class Round {
 	 * @param fixture1
 	 * @param fixture2
 	 * @param fixture3
+	 * @param number
 	 */
 	public Round(Fixture fixture1, Fixture fixture2, Fixture fixture3, int number) {
 		this.setFixture1(fixture1);
 		this.setFixture2(fixture2);
 		this.setFixture3(fixture3);
+		this.setFixtures(fixture1, fixture2, fixture3);
 		this.setNumber(number);
 	}
 
@@ -105,6 +110,16 @@ public class Round {
 		System.out.println(fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName());
 		System.out.println(fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName());
 		System.out.println(" ");
+	}
+
+	public ArrayList<Fixture> getFixtures() {
+		return fixtures;
+	}
+
+	public void setFixtures(Fixture fixture1, Fixture fixture2, Fixture fixture3) {
+		fixtures.add(getFixture1());
+		fixtures.add(getFixture2());
+		fixtures.add(getFixture3());
 	}
 
 }

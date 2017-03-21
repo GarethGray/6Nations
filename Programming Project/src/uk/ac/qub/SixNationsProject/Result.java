@@ -1,6 +1,7 @@
 package uk.ac.qub.SixNationsProject;
 
 public class Result {
+	private Tournament tournament;
 	private Round round;
 	private Fixture fixture;
 	
@@ -12,16 +13,21 @@ public class Result {
 	private int team2Tries;
 	private int team2Points;
 	
-	public Result(Round round, Fixture fixture, Team team1, int team1Tries, int team1Points, Team team2, int team2Tries,
+	public Result(Tournament tournament, int roundNumber, int fixtureNumber, int team1Tries, int team1Points, int team2Tries,
 			int team2Points){
-		this.round = round;
-		this.fixture=fixture;
-		this.team1=team1;
+		this.setTournament(tournament);
+		this.round = tournament.getRounds().get((roundNumber)-1);
+		this.fixture=round.getFixtures().get((fixtureNumber)-1);
+		this.team1=this.fixture.getTeam1();
 		this.team1Tries=team1Tries;
 		this.team1Points=team1Points;
-		this.team2=team2;
+		this.team2=this.fixture.getTeam2();
 		this.team2Tries=team2Tries;
 		this.team2Points=team2Points;
+	}
+	
+	public Result insertScores(Tournament tournament, int roundNumber, int fixtureNumber, int team1Tries, int team1Points, int team2Tries, int team2Points){
+		return new Result(tournament, roundNumber, fixtureNumber, team1Tries, team1Points, team2Points, team2Points);
 	}
 
 	public void printMatchScores(){
@@ -141,5 +147,13 @@ public class Result {
 	 */
 	public void setTeam2Points(int team2Points) {
 		this.team2Points = team2Points;
+	}
+
+	public Tournament getTournament() {
+		return tournament;
+	}
+
+	public void setTournament(Tournament tournament) {
+		this.tournament = tournament;
 	}
 }
