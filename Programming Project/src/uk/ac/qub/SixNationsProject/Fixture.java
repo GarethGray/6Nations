@@ -53,5 +53,11 @@ public class Fixture {
 	public void setTeam2(Team team2) {
 		this.team2 = team2;
 	}
+	
+	public void fixtureSwitcher(){
+		Team temp = team1;
+		this.team1 = team2;
+		this.team2 = temp;
+	}
 
 }

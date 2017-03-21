@@ -48,6 +48,9 @@ public class FixtureGenerator {
 			roundList.add(this.createARound(teams,i+2));
 		}
 
+		roundList.get(1).getFixture1().fixtureSwitcher();
+		roundList.get(3).getFixture1().fixtureSwitcher();
+		
 		return new Tournament(teams, year, roundList);
 	}
 	
