@@ -65,7 +65,7 @@ public class Fixture {
 		this.team2 = temp;
 	}
 
-
+	
 	public int getFixtureNumber() {
 		return fixtureNumber;
 	}
@@ -73,7 +73,6 @@ public class Fixture {
 	public void setFixtureNumber(int fixtureNumber) {
 		this.fixtureNumber = fixtureNumber;
 	}
-
 
 
 }
