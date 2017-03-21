@@ -57,7 +57,7 @@ public class Fixture {
 	}
 	
 	/**
-	 * This method switches the order of the teams in the fixture
+	 * This method switches the order of the teams in  fixture
 	 */
 	public void fixtureSwitcher(){
 		Team temp = team1;
