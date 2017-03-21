@@ -16,6 +16,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
+
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
 		Team england = new Team(TeamName.ENGLAND);
