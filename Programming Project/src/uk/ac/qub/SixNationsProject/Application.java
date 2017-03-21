@@ -16,7 +16,9 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println("Hello from Kathy");
+		
+		
+		System.out.println("Hello from Grainne");
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
 		Team england = new Team(TeamName.ENGLAND);
