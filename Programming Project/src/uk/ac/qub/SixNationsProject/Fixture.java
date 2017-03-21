@@ -54,6 +54,9 @@ public class Fixture {
 		this.team2 = team2;
 	}
 	
+	/**
+	 * This method switches the order of the teams in the first fixture of a round
+	 */
 	public void fixtureSwitcher(){
 		Team temp = team1;
 		this.team1 = team2;
