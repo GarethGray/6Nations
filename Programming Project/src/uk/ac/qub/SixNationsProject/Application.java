@@ -39,7 +39,7 @@ public class Application {
 			r.printFixtures();
 		}
 		
-		Match match1 = new Match(tournamentRounds.get(0),
+		Result match1 = new Result(tournamentRounds.get(0), tournamentRounds.get(0).getFixture1(),
 				tournamentRounds.get(0).getFixture1().getTeam1(), 7, 20,
 				tournamentRounds.get(0).getFixture1().getTeam2(), 6, 47);
 		

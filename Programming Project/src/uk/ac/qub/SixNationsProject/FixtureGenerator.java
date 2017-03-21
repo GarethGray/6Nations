@@ -59,8 +59,8 @@ public class FixtureGenerator {
 	 */
 	public Round createARound(ArrayList<Team> teams, int roundNumber) {
 		
-		return new Round(new Fixture(teams.get(0), teams.get(5)),
-				new Fixture(teams.get(1), teams.get(4)), new Fixture(teams
+		return new Round(new Fixture(1, teams.get(0), teams.get(5)),
+				new Fixture(2, teams.get(1), teams.get(4)), new Fixture(3, teams
 						.get(2), teams.get(3)), roundNumber);
 		
 	}

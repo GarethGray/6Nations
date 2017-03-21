@@ -2,6 +2,7 @@ package uk.ac.qub.SixNationsProject;
 
 public class Fixture {
 
+	private int fixtureNumber;
 	private Team team1, team2;
 
 	/**
@@ -11,7 +12,8 @@ public class Fixture {
 	 * @param team2
 	 */
 
-	public Fixture(Team team1, Team team2) {
+	public Fixture(int fixtureNumber, Team team1, Team team2) {
+		this.setFixtureNumber(fixtureNumber);
 		this.setTeam1(team1);
 		this.setTeam2(team2);
 	}
@@ -52,6 +54,14 @@ public class Fixture {
 
 	public void setTeam2(Team team2) {
 		this.team2 = team2;
+	}
+
+	public int getFixtureNumber() {
+		return fixtureNumber;
+	}
+
+	public void setFixtureNumber(int fixtureNumber) {
+		this.fixtureNumber = fixtureNumber;
 	}
 
 }

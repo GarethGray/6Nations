@@ -1,6 +1,6 @@
 package uk.ac.qub.SixNationsProject;
 
-public class Match {
+public class Result {
 	private Round round;
 	private Fixture fixture;
 	
@@ -12,9 +12,10 @@ public class Match {
 	private int team2Tries;
 	private int team2Points;
 	
-	public Match(Round round, Team team1, int team1Tries, int team1Points, Team team2, int team2Tries,
+	public Result(Round round, Fixture fixture, Team team1, int team1Tries, int team1Points, Team team2, int team2Tries,
 			int team2Points){
 		this.round = round;
+		this.fixture=fixture;
 		this.team1=team1;
 		this.team1Tries=team1Tries;
 		this.team1Points=team1Points;
@@ -24,9 +25,10 @@ public class Match {
 	}
 
 	public void printMatchScores(){
-		System.out.println("Round: "+round.getNumber());
-		System.out.println("\t"+team1.getName()+"\tvs\t"+team2.getName());
+		System.out.println("Round: "+round.getNumber()+", fixture: "+fixture.getFixtureNumber());
+		System.out.println("\t"+team1.getName()+"\t vs\t"+team2.getName());
 		System.out.println("TRIES\t"+team1Tries+"\t\t"+team2Tries);
+		System.out.println("POINTS\t"+team1Points+"\t\t"+team2Points);
 	}
 	
 	/**
