@@ -16,7 +16,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		
+		//creating all teams to play in the tournament
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
 		Team england = new Team(TeamName.ENGLAND);
@@ -24,6 +24,8 @@ public class Application {
 		Team wales = new Team(TeamName.WALES);
 		Team italy = new Team(TeamName.ITALY);
 
+		//adding all teams to an ArrayList that can be passed into
+		//the FixtureGenerator
 		ArrayList<Team> teams = new ArrayList<>();
 		teams.add(scotland);
 		teams.add(france);
@@ -32,13 +34,18 @@ public class Application {
 		teams.add(wales);
 		teams.add(italy);
 		
+		//create new FixtureGenerator
 		FixtureGenerator fg = new FixtureGenerator();
-		Tournament testTournament = fg.generateFixtures(5, 2017, teams);
+		
+		//create Tournament by passing in fixtures generated
+		//with year and ArrayList of teams
+		Tournament testTournament = fg.generateFixtures(2017, teams);
 		ArrayList<Round> tournamentRounds = testTournament.getRounds();
 		for(Round r : tournamentRounds){
 			r.printFixtures();
 		}
 		
+		//creating new Results for a given Fixture
 		Result testResults = new Result(testTournament, 1, 1, 3, 40, 5, 20);
 		testResults.printMatchScores();
 		

@@ -20,18 +20,19 @@ public class FixtureGenerator {
 	 * This method generates the fixtures for an entire tournament. It shuffles the teams to allow for randomly generated fixtures.
 	 * Then it creates a Round of fixtures using createARound method. It adds this Round to an ArrayList of Rounds.
 	 * It then moves the last Team in teams to the second place in the array and creates another Round. It repeats this until the given 
-	 * @param numberofRounds have been generated and added to roundList. Using this roundList the method then @returns a new Tournament
-	 * @param numberOfRounds
+	 * appropriate number of rounds (the number of teams minus 1) have been generated and added to roundList. Using this roundList the 
+	 * method then @returns a new Tournament
 	 * @param year
 	 * @param teams
-	 * @return
+	 * @return Tournament
 	 */
 
-	public Tournament generateFixtures(int numberOfRounds, int year, ArrayList<Team> teams) {
+	public Tournament generateFixtures(int year, ArrayList<Team> teams) {
 		
 		
 		ArrayList<Round> roundList = new ArrayList<>();
-
+		int numberOfRounds = teams.size()-1;
+		
 		// randomly shuffle teams
 		Collections.shuffle(teams);
 
