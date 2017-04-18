@@ -19,9 +19,11 @@ public class Test_FixtureGenerator {
 	
 	@Before
 	public void setUp() throws Exception {
-		fixtures = new ArrayList<>();
+		fixtures = new ArrayList<Fixture>();
 		fg = new FixtureGenerator();
 		year = 2017;
+		teams = new ArrayList<>();
+
 		
 		
 		Team ireland = new Team(TeamName.IRELAND);
@@ -33,7 +35,6 @@ public class Test_FixtureGenerator {
 		
 
 		
-		ArrayList<Team> teams = new ArrayList<>();
 		teams.add(scotland);	
 		teams.add(wales);
 		teams.add(italy);
@@ -44,8 +45,13 @@ public class Test_FixtureGenerator {
 	}
 
 	@Test
-	public void testGenerateFixtures() {
-		for (Round round : fg.generateFixtures(year, teams).getRounds()) {
+	/*
+	 * Testing for duplicate fixtures
+	 */
+	public void testGenerateFixturesForDuplicates() {
+		ArrayList<Round> rounds = new ArrayList<Round>();
+		rounds = fg.generateFixtures(year, teams).getRounds();
+		for (Round round : rounds) {
 			fixtures.addAll(round.getFixtures());
 		}
 		

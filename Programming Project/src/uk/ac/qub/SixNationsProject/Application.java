@@ -42,20 +42,7 @@ public class Application {
 		
 		//create Tournament by passing in fixtures generated
 		//with year and ArrayList of teams
-		ArrayList<Fixture> fixtures = new ArrayList<Fixture>();
-		Tournament testTournament = fg.generateFixtures(2017, teams);
-		for (Round round : fg.generateFixtures(2017, teams).getRounds()) {
-			fixtures.addAll(round.getFixtures());
-		}
 		
-		for (Fixture fixture : fixtures) {
-			fixture.printFixture();
-		}
-		
-		Set<Fixture> set = new HashSet<Fixture>(fixtures);	
-		
-		System.out.println(set.size());
-		System.out.println(fixtures.size());
 		// ArrayList<Round> tournamentRounds = testTournament.getRounds();
 		// for(Round r : tournamentRounds){
 		//	 r.printFixtures();
