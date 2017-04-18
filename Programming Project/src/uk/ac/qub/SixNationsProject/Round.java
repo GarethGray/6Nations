@@ -103,12 +103,13 @@ public class Round {
 	
 	/**
 	 * Prints out the Round number and the fixtures in a Round
+	 * 17/04, Laura: added fixture numbers to use with inputScores method in Result
 	 */
 	public void printFixtures(){
 		System.out.println("Round " + this.number);
-		System.out.println(fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName());
-		System.out.println(fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName());
-		System.out.println(fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName());
+		System.out.println("1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName());
+		System.out.println("2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName());
+		System.out.println("3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName());
 		System.out.println(" ");
 	}
 
