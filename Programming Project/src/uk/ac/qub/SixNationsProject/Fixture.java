@@ -74,5 +74,8 @@ public class Fixture {
 		this.fixtureNumber = fixtureNumber;
 	}
 
+	public void printFixture() {
+		System.out.println(this.team1.getName() + " vs " + this.team2.getName());
+	}
 
 }

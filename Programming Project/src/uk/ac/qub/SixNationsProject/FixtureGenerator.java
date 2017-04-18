@@ -11,8 +11,6 @@ import java.util.Collections;
  *
  */
 
-// TODO make this a singleton to prevent more than one FixtureGenerator being
-// created and wreaking havoc with the fixture list.
 
 public class FixtureGenerator {
 	
@@ -40,7 +38,7 @@ public class FixtureGenerator {
 		roundList.add(this.createARound(teams,1));
 
 		// each loop, reorder the list of teams by moving the last team to the front and then generate another round of fixtures
-		for (int i = 0; i < numberOfRounds - 1; i++) {
+		for (int i = 0; i < numberOfRounds-1; i++) {
 			
 			Team movingTeam = teams.get((teams.size()) - 1);
 			teams.remove(movingTeam);

@@ -4,7 +4,9 @@
 package uk.ac.qub.SixNationsProject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author 40189322
@@ -40,7 +42,20 @@ public class Application {
 		
 		//create Tournament by passing in fixtures generated
 		//with year and ArrayList of teams
+		ArrayList<Fixture> fixtures = new ArrayList<Fixture>();
 		Tournament testTournament = fg.generateFixtures(2017, teams);
+		for (Round round : fg.generateFixtures(2017, teams).getRounds()) {
+			fixtures.addAll(round.getFixtures());
+		}
+		
+		for (Fixture fixture : fixtures) {
+			fixture.printFixture();
+		}
+		
+		Set<Fixture> set = new HashSet<Fixture>(fixtures);	
+		
+		System.out.println(set.size());
+		System.out.println(fixtures.size());
 		// ArrayList<Round> tournamentRounds = testTournament.getRounds();
 		// for(Round r : tournamentRounds){
 		//	 r.printFixtures();
@@ -53,8 +68,8 @@ public class Application {
 		// Result testResults2 = new Result(testTournament, 1, 2, 3, 40, 5, 20);
 		// testResults2.printMatchScores();
 		
-		Result test = new Result();
-		test.insertScores(testTournament);
+//		Result test = new Result();
+//		test.insertScores(testTournament);
 	}
 
 
