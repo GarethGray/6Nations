@@ -16,7 +16,7 @@ public class Test_Team {
 	}
 
 	/**
-	 * Testing constructor
+	 * Testing constructor args
 	 */
 	@Test
 	public void testTeam() {
