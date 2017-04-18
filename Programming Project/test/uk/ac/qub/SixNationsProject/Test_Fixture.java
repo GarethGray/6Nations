@@ -31,7 +31,6 @@ public class Test_Fixture {
 		validTeam2 = new Team(TeamName.ITALY);
 		
 		
-		
 	}
 
 	/**
@@ -43,9 +42,12 @@ public class Test_Fixture {
 		Team team1 = validTeam1;
 		Team team2 = validTeam2;
 		
-		Fixture validFixture = new Fixture(1, team1, team2);
+		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
 		
 		assertTrue(validFixture != null);
+		assertEquals(team1, validFixture.getTeam1());
+		assertEquals(team2, validFixture.getTeam2());
+		assertEquals(validFixtureNumber, validFixture.getFixtureNumber());
 		
 	}
 
