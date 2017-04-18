@@ -10,7 +10,6 @@ public class Tournament {
 
 	/**
 	 * Constructor with args
-	 * 
 	 * @param rounds
 	 */
 	public Tournament(ArrayList<Team> teams, int year, ArrayList<Round> rounds) {
