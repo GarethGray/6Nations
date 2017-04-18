@@ -15,6 +15,9 @@ public class Test_Team {
 		
 	}
 
+	/**
+	 * Testing constructor
+	 */
 	@Test
 	public void testTeam() {
 	
@@ -23,14 +26,16 @@ public class Test_Team {
 		
 	}
 
+	/**
+	 * Testing getter and setter
+	 */
 	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+	public void testSetGetName() {
+		Team validTeam = new Team(TeamName.WALES);
+		assertEquals(validTeam.getName(), TeamName.WALES);
+		
 	}
 
-	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
-	}
+	
 
 }
