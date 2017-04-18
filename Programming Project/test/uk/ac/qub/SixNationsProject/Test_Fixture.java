@@ -15,7 +15,9 @@ import org.junit.Test;
 public class Test_Fixture {
 
 	
-	int validFixtureNumber, invalidFixtureNumber;
+	int validFixtureNumber;
+	Team validTeam1;
+	Team validTeam2;
 	
 	
 	/**
@@ -25,7 +27,9 @@ public class Test_Fixture {
 	public void setUp() throws Exception {
 		
 		validFixtureNumber = 1;
-		invalidFixtureNumber = 9;
+		validTeam1 = new Team(TeamName.IRELAND);
+		validTeam2 = new Team(TeamName.ITALY);
+		
 		
 		
 	}
@@ -36,8 +40,8 @@ public class Test_Fixture {
 	@Test
 	public void testFixtureConstructor() {
 		
-		Team team1 = new Team(TeamName.IRELAND);
-		Team team2 = new Team(TeamName.ITALY);
+		Team team1 = validTeam1;
+		Team team2 = validTeam2;
 		
 		Fixture validFixture = new Fixture(1, team1, team2);
 		
@@ -50,63 +54,58 @@ public class Test_Fixture {
 	 */
 	@Test
 	public void testSetGetTeam1() {
-		Team team1 = new Team(TeamName.IRELAND);
-		Team team2 = new Team(TeamName.ITALY);
+		Team team1 = validTeam1;
+		Team team2 = validTeam2;
 		
-		Fixture validFixture = new Fixture(1, team1, team2);
-		assertEquals(TeamName.IRELAND, validFixture.getTeam1());
-		
-		
-		
+		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
+		assertEquals(team1, validFixture.getTeam1());
 		
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#setTeam1(uk.ac.qub.SixNationsProject.Team)}.
+	 * Test method for getter and setter for team2
 	 */
 	@Test
-	public void testSetTeam1() {
-		fail("Not yet implemented");
+	public void testGetSetTeam2() {
+		
+		Team team1 = validTeam1;
+		Team team2 = validTeam2;
+		
+		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
+		assertEquals(team2, validFixture.getTeam2());
 	}
 
+	
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#getTeam2()}.
-	 */
-	@Test
-	public void testGetTeam2() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#setTeam2(uk.ac.qub.SixNationsProject.Team)}.
-	 */
-	@Test
-	public void testSetTeam2() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#fixtureSwitcher()}.
+	 * Test method for fixtureSwitcher 
 	 */
 	@Test
 	public void testFixtureSwitcher() {
-		fail("Not yet implemented");
+		
+		Team team1 = validTeam1;
+		Team team2 = validTeam2;
+		
+		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
+		validFixture.fixtureSwitcher();
+		assertEquals(validFixture.getTeam1(), team2);
+		assertEquals(validFixture.getTeam2(), team1);
+		
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#getFixtureNumber()}.
+	 * Test method for setter and getter for fixture number
 	 */
 	@Test
-	public void testGetFixtureNumber() {
-		fail("Not yet implemented");
+	public void testSetGetFixtureNumber() {
+		
+		Team team1 = validTeam1;
+		Team team2 = validTeam2;
+		
+		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
+		assertEquals(validFixtureNumber, validFixture.getFixtureNumber());
+		
 	}
 
-	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Fixture#setFixtureNumber(int)}.
-	 */
-	@Test
-	public void testSetFixtureNumber() {
-		fail("Not yet implemented");
-	}
+	
 
 }
