@@ -27,33 +27,7 @@ public class FixtureGenerator {
 	 * @return Tournament
 	 */
 
-	public Tournament generateFixtures(int year, ArrayList<Team> teams) {
-		
-		
-		ArrayList<Round> roundList = new ArrayList<>();
-		int numberOfRounds = teams.size()-1;
-		
-		// randomly shuffle teams
-		Collections.shuffle(teams);
-
-		// generate first round of fixtures
-		roundList.add(this.createARound(teams,1));
-
-		// each loop, reorder the list of teams by moving the last team to the front and then generate another round of fixtures
-		for (int i = 0; i < numberOfRounds - 1; i++) {
-			
-			Team movingTeam = teams.get((teams.size()) - 1);
-			teams.remove(movingTeam);
-			teams.add(1, movingTeam);
-
-			roundList.add(this.createARound(teams,i+2));
-		}
-
-		roundList.get(1).getFixture1().fixtureSwitcher();
-		roundList.get(3).getFixture1().fixtureSwitcher();
-		
-		return new Tournament(teams, year, roundList);
-	}
+	
 	
 
 	/**
