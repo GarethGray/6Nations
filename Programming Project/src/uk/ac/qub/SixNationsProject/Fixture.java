@@ -77,5 +77,33 @@ public class Fixture {
 	public void printFixture() {
 		System.out.println(this.team1.getName() + " vs " + this.team2.getName());
 	}
+	
+	/**
+	 * This method overrides the equals method to allow for more accurate comparison of fixtures
+	 * so that eg. England vs Scotland is considered the same as Scotland vs England.
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Fixture )) {
+			return false;
+		}
+		Fixture fixture = (Fixture)obj;
+		return ((this.team1.getName().equals(fixture.team1.getName())) 
+				&& (this.team2.getName().equals(fixture.team2.getName())))
+				|| ((this.team1.getName().equals(fixture.team2.getName())) 
+				&& (this.team2.getName().equals(fixture.team1.getName())));
+	}
+	
+	/**
+	 * This method overrides the hashCode method to allow for more accurate comparison of fixtures
+	 * so that eg. England vs Scotland is considered the same as Scotland vs England.
+	 */
+	
+	@Override
+	public int hashCode(){
+	    return (int) this.team1.getName().hashCode() *
+	    		this.team2.getName().hashCode();
+	  }
 
 }

@@ -15,6 +15,7 @@ public class Test_FixtureGenerator {
 	private FixtureGenerator fg;
 	private int year;
 	private ArrayList<Team> teams;
+	
 
 	
 	@Before
@@ -45,8 +46,15 @@ public class Test_FixtureGenerator {
 	}
 
 	@Test
-	/*
+	/**
 	 * Testing for duplicate fixtures
+	 * Generates an ArrayList of Fixture and then creates a Set based from that ArrayList.
+	 * The Set will automatically remove duplicates.
+	 * Comparing the ArrayList sixe with the Set size will therefore tell us 
+	 * if there were duplicates in the generated fixtures.
+	 * 
+	 * NB equals and hashCode methods for Fixtures have been overridden.
+	 * 
 	 */
 	public void testGenerateFixturesForDuplicates() {
 		ArrayList<Round> rounds = new ArrayList<Round>();
