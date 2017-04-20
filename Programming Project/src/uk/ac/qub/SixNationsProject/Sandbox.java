@@ -34,19 +34,6 @@ public class Sandbox {
 		Fixture testFixture = new Fixture(1, england, scotland);
 		Fixture testFixture2 = new Fixture(2, england, scotland);
 		
-		fixtures.add(testFixture);
-		fixtures.add(testFixture2);
-
-		ArrayList<Round> rounds = new ArrayList<Round>();
-		rounds = fg.generateFixtures(2017, teams).getRounds();
-		for (Round round : rounds) {
-			fixtures.addAll(round.getFixtures());
-		}
-		
-		Set<Fixture> set = new HashSet<Fixture>(fixtures);	
-		
-		System.out.println(set.size());
-		System.out.println(fixtures.size());
 		
 	}
 
