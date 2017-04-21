@@ -5,6 +5,10 @@ package uk.ac.qub.SixNationsProject;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +18,7 @@ import org.junit.Test;
  */
 public class Test_Round {
 
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	
 	int validFixtureNumber, validRoundNumber;
 	Team team1, team2, team3, team4, team5, team6;
@@ -56,56 +61,85 @@ public class Test_Round {
 		assertEquals(fixture1, round.getFixture1());
 		assertEquals(fixture2, round.getFixture2());
 		assertEquals(fixture3, round.getFixture3());
+		assertEquals(validFixtureNumber, round.getNumber());
 		
 	
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#getFixture1()}.
+	 * Test method for getter and setter for fixture1
 	 */
 	@Test
-	public void testGetFixture1() {
-		fail("Not yet implemented");
+	public void testSetGetFixture1() {
+		
+		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
+		round.setFixture1(fixture2);
+		assertEquals(fixture2, round.getFixture1());
+		
+		
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#getFixture2()}.
+	 * Test method for getter and setter for fixture2
 	 */
 	@Test
-	public void testGetFixture2() {
-		fail("Not yet implemented");
+	public void testSetGetFixture2() {
+		
+		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
+		round.setFixture2(fixture1);
+		assertEquals(fixture1, round.getFixture2());
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#getFixture3()}.
+	 * Test method for getter and setter for fixture3
 	 */
 	@Test
 	public void testGetFixture3() {
-		fail("Not yet implemented");
+		
+		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
+		round.setFixture3(fixture1);
+		assertEquals(fixture1, round.getFixture3());
+	
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#getNumber()}.
+	 * Test method for getter and setter for number
 	 */
 	@Test
-	public void testGetNumber() {
-		fail("Not yet implemented");
+	public void testGetSetNumber() {
+		Round round = new Round(fixture1, fixture2, fixture3, 3);
+		round.setNumber(validRoundNumber);
+		assertEquals(validRoundNumber, round.getNumber());
 	}
 
 	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#printFixtures()}.
+	 * Test method for print fixtures
 	 */
 	@Test
 	public void testPrintFixtures() {
-		fail("Not yet implemented");
+		
+		
+		System.setOut(new PrintStream(outContent));
+		
+		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
+		
+		
+		round.printFixtures();
+		
+		assertTrue(outContent.toString() != null);
+		
+		/**
+		 * 
+		 *
+		assertEquals(("Round " + round.getNumber()+"\n"+"1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName()+"\n"+"2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName()+"\n"+"3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName()+"\n"+" "), outContent.toString());
+		*/
+		
+		System.setOut(null);
+
+		 
+	   
 	}
 
-	/**
-	 * Test method for {@link uk.ac.qub.SixNationsProject.Round#setFixtures(uk.ac.qub.SixNationsProject.Fixture, uk.ac.qub.SixNationsProject.Fixture, uk.ac.qub.SixNationsProject.Fixture)}.
-	 */
-	@Test
-	public void testSetFixtures() {
-		fail("Not yet implemented");
-	}
+	
 
 }

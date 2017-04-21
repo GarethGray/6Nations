@@ -60,7 +60,8 @@ public class Test_Fixture {
 		Team team2 = validTeam2;
 		
 		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
-		assertEquals(team1, validFixture.getTeam1());
+		validFixture.setTeam1(team2);
+		assertEquals(team2, validFixture.getTeam1());
 		
 	}
 
@@ -74,7 +75,8 @@ public class Test_Fixture {
 		Team team2 = validTeam2;
 		
 		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
-		assertEquals(team2, validFixture.getTeam2());
+		validFixture.setTeam2(team1);
+		assertEquals(team1, validFixture.getTeam2());
 	}
 
 	
@@ -104,7 +106,8 @@ public class Test_Fixture {
 		Team team2 = validTeam2;
 		
 		Fixture validFixture = new Fixture(validFixtureNumber, team1, team2);
-		assertEquals(validFixtureNumber, validFixture.getFixtureNumber());
+		validFixture.setFixtureNumber(2);
+		assertEquals(2, validFixture.getFixtureNumber());
 		
 	}
 
