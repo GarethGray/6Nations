@@ -111,6 +111,7 @@ public class Round {
 		System.out.println("2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName());
 		System.out.println("3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName());
 		System.out.println(" ");
+		
 	}
 
 	public ArrayList<Fixture> getFixtures() {
