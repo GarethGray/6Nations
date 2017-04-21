@@ -114,6 +114,8 @@ public class Test_Round {
 
 	/**
 	 * Test method for print fixtures
+	 * 
+	 * second assert actually matches expected except for (thus far) unexplained additional empty line underneath
 	 */
 	@Test
 	public void testPrintFixtures() {
@@ -128,11 +130,13 @@ public class Test_Round {
 		
 		assertTrue(outContent.toString() != null);
 		
-		/**
-		 * 
-		 *
-		assertEquals(("Round " + round.getNumber()+"\n"+"1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName()+"\n"+"2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName()+"\n"+"3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName()+"\n"+" "), outContent.toString());
-		*/
+		String expected = ("Round " + round.getNumber()+"\n"+"1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName()+"\n"+
+		"2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName()+"\n"
+		+"3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName()+"\n"+" ");
+		  
+		 
+		assertEquals(expected, outContent.toString());
+		
 		
 		System.setOut(null);
 
