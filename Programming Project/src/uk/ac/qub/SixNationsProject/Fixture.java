@@ -6,6 +6,7 @@ public class Fixture {
 
 	private int fixtureNumber;
 	private Team team1, team2;
+	private Result result;
 
 	/**
 	 * Constructor with args
@@ -18,6 +19,7 @@ public class Fixture {
 		this.setFixtureNumber(fixtureNumber);
 		this.setTeam1(team1);
 		this.setTeam2(team2);
+		this.setResult(new Result());
 	}
 
 	/**
@@ -75,52 +77,13 @@ public class Fixture {
 		this.fixtureNumber = fixtureNumber;
 	}
 
-	public static Result insertScores(Tournament tournament) {
-		Scanner scanner = new Scanner(System.in);
-		int roundNumber = 0;
-		int fixtureNumber = 0;
-		Fixture chosenFixture;
-		int team1Tries;
-		int team1Points;
-		int team2Tries;
-		int team2Points;
-
-		// asks user to select round to input scores into
-		while (roundNumber < 1 || roundNumber > tournament.getRounds().size()) {
-			System.out.println("Select round:");
-			roundNumber = scanner.nextInt();
-		}
-		roundNumber--;
-
-		// prints fixtures of chosen round
-		tournament.getRounds().get(roundNumber).printFixtures();
-
-		// asks user to select fixture to input scores into
-		while (fixtureNumber < 1 || fixtureNumber > tournament.getRounds().get(roundNumber).getFixtures().size()) {
-			System.out.println("Select fixture:");
-			fixtureNumber = scanner.nextInt();
-		}
-		fixtureNumber--;
-		chosenFixture = tournament.getRounds().get(roundNumber).getFixtures().get(fixtureNumber);
-
-		// asks user to input scores for each team
-		System.out.println("Please enter scores:");
-		System.out.println(chosenFixture.getTeam1().getName() + " tries:");
-		team1Tries = scanner.nextInt();
-		System.out.println(chosenFixture.getTeam1().getName() + " points:");
-		team1Points = scanner.nextInt();
-
-		System.out.println(chosenFixture.getTeam2().getName() + " tries:");
-		team2Tries = scanner.nextInt();
-		System.out.println(chosenFixture.getTeam2().getName() + " points:");
-		team2Points = scanner.nextInt();
-
-		scanner.close();
-		Result result = new Result(tournament, roundNumber, fixtureNumber, team1Tries, team1Points, team2Tries,
-				team2Points);
-		result.printMatchScores();
-
+	public void setResult(Result result)
+	{
+		this.result = result;
+	}
+	
+	public Result getResult()
+	{
 		return result;
 	}
-
 }

@@ -4,10 +4,9 @@
 package uk.ac.qub.SixNationsProject;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
- * @author 40189322
+ * @author 40189322, 40084540
  *
  */
 public class Application {
@@ -35,26 +34,9 @@ public class Application {
 		teams.add(wales);
 		teams.add(italy);
 		
-		//create new FixtureGenerator
-		FixtureGenerator fg = new FixtureGenerator();
-		
-		//create Tournament by passing in fixtures generated
-		//with year and ArrayList of teams
-		Tournament testTournament = fg.generateFixtures(2017, teams);
-		// ArrayList<Round> tournamentRounds = testTournament.getRounds();
-		// for(Round r : tournamentRounds){
-		//	 r.printFixtures();
-		// }
-		
-		//creating new Results for a given Fixture
-		// Result testResults = new Result(testTournament, 1, 1, 3, 40, 5, 20);
-		// testResults.printMatchScores();
-		
-		// Result testResults2 = new Result(testTournament, 1, 2, 3, 40, 5, 20);
-		// testResults2.printMatchScores();
-		
-		Result test = new Result();
-		test.insertScores(testTournament);
+		// Create a new tournament object
+		Tournament tournament = new Tournament(teams, 2017);
+		ResultUtils.promptToInsertScores(tournament);
 	}
 
 

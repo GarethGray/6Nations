@@ -1,158 +1,140 @@
 package uk.ac.qub.SixNationsProject;
 
-import java.util.Scanner;
-
 public class Result {
-	private Tournament tournament;
-	private Round round;
-	private Fixture fixture;
 	
-	private Team team1;
+	// Tries and score for team 1 from the fixture
 	private int team1Tries;
+	private int team1Score;
+
+	// Points awarded to team 1 based on score of fixture
 	private int team1Points;
-	
-	private Team team2;
+	private int team1BonusPoints;
+
+	// Tries and score for team 2 from the fixture
 	private int team2Tries;
+	private int team2Score;
+
+	// Points awarded to team 2 based on score of fixture
 	private int team2Points;
-	
-	
-	public Result(Tournament tournament, int roundNumber, int fixtureNumber, int team1Tries, int team1Points, int team2Tries,
-			int team2Points){
-		this.setTournament(tournament);
-		this.round = tournament.getRounds().get((roundNumber));
-		this.fixture=round.getFixtures().get((fixtureNumber));
-		this.team1=this.fixture.getTeam1();
-		this.team1Tries=team1Tries;
-		this.team1Points=team1Points;
-		this.team2=this.fixture.getTeam2();
-		this.team2Tries=team2Tries;
-		this.team2Points=team2Points;
-	}
-	
-	public void printMatchScores(){
-		System.out.println("Round: "+round.getNumber()+", fixture: "+fixture.getFixtureNumber());
-		System.out.println("\t"+team1.getName()+"\t vs\t"+team2.getName());
-		System.out.println("TRIES\t"+team1Tries+"\t\t\t"+team2Tries);
-		System.out.println("POINTS\t"+team1Points+"\t\t\t"+team2Points);
-	}
-	
-	/**
-	 * @return the round
-	 */
-	public Round getRound() {
-		return round;
+	private int team2BonusPoints;
+
+	private static int[] emptyArray = { 0, 0 };
+
+	// Result object to hold the scores of a fixture and the points awrded to
+	// teams dure to a fixture.
+	// Will be initialized with a default score of 0.
+	public Result() {
+		setScores(emptyArray, emptyArray);
 	}
 
-	/**
-	 * @return the fixture
-	 */
-	public Fixture getFixture() {
-		return fixture;
+	// Sets the scores of the result object, then calculates and sets the points
+	// the teams should recieve
+	// @param team1 Array of team 1's tries and score
+	// @param team2 Array of team 2's tries and score
+	public void setScores(int[] team1, int[] team2) {
+		this.team1Tries = team1[0];
+		this.team1Score = team1[1];
+
+		this.team2Tries = team2[0];
+		this.team2Score = team2[1];
+
+		calculatePoints();
 	}
 
-	/**
-	 * @return the team1
-	 */
-	public Team getTeam1() {
-		return team1;
+	public void calculatePoints() {
+		team1Points = 0;
+		team1BonusPoints = 0;
+		team2Points = 0;
+		team2BonusPoints = 0;
+		
+		// Draw, award both teams 2 points
+		if (team1Score == team2Score) {
+			team1Points = team1Points + 2;
+			team2Points = team2Points + 2;
+		} else if (team1Score > team2Score) {
+			team1Points = team1Points + 4;
+			if (team1Score - team2Score <= 7) {
+				team2Points++;
+				team2BonusPoints++;
+			}
+		} else if (team1Score < team2Score) {
+			team2Points = team2Points + 4;
+			if (team2Score - team1Score <= 7) {
+				team1Points++;
+				team1BonusPoints++;
+			}
+		}
+		if (team2Tries >= 4) {
+			team2Points++;
+			team2BonusPoints++;
+		}
+		if (team1Tries >= 4) {
+			team1Points++;
+			team1BonusPoints++;
+		}
 	}
+	
+	/**
+	 * Getters for the tries, scores, points and bonus points of each team
+	 * Note: There is no need for setters for these values. They should not be set indivdually,
+	 * 		 but rather with the setScores method above, which will also calculate the points to 
+	 * 		 be awarded. This prevents the scores/points from becoming out of sync.
+	 */
+	
 
 	/**
-	 * @return the team1Tries
+	 * @return team1Tries The tries scored by team 1
 	 */
 	public int getTeam1Tries() {
 		return team1Tries;
 	}
 
 	/**
-	 * @return the team1Points
+	 * @return team1Score The score of team 1
+	 */
+	public int getTeam1Score() {
+		return team1Score;
+	}
+	
+	/**
+	 * @return team1Points The points awarded to team 1
 	 */
 	public int getTeam1Points() {
 		return team1Points;
 	}
 
 	/**
-	 * @return the team2
+	 * @return team1BonusPoints The bonus points awarded to team 1
 	 */
-	public Team getTeam2() {
-		return team2;
+	public int getTeam1BonusPoints() {
+		return team1BonusPoints;
 	}
 
 	/**
-	 * @return the team2Tries
+	 * @return team2Tries The tries scored by team 2
 	 */
 	public int getTeam2Tries() {
 		return team2Tries;
 	}
 
 	/**
-	 * @return the team2Points
+	 * @return team2Score The score of team 2
+	 */
+	public int getTeam2Score() {
+		return team2Score;
+	}
+	
+	/**
+	 * @return team2Points The points awarded to team 2
 	 */
 	public int getTeam2Points() {
 		return team2Points;
 	}
-
+	
 	/**
-	 * @param round the round to set
+	 * @return team2BonusPoints The bonus points awarded to team 2
 	 */
-	public void setRound(Round round) {
-		this.round = round;
-	}
-
-	/**
-	 * @param fixture the fixture to set
-	 */
-	public void setFixture(Fixture fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * @param team1 the team1 to set
-	 */
-	public void setTeam1(Team team1) {
-		this.team1 = team1;
-	}
-
-	/**
-	 * @param team1Tries the team1Tries to set
-	 */
-	public void setTeam1Tries(int team1Tries) {
-		this.team1Tries = team1Tries;
-	}
-
-	/**
-	 * @param team1Points the team1Points to set
-	 */
-	public void setTeam1Points(int team1Points) {
-		this.team1Points = team1Points;
-	}
-
-	/**
-	 * @param team2 the team2 to set
-	 */
-	public void setTeam2(Team team2) {
-		this.team2 = team2;
-	}
-
-	/**
-	 * @param team2Tries the team2Tries to set
-	 */
-	public void setTeam2Tries(int team2Tries) {
-		this.team2Tries = team2Tries;
-	}
-
-	/**
-	 * @param team2Points the team2Points to set
-	 */
-	public void setTeam2Points(int team2Points) {
-		this.team2Points = team2Points;
-	}
-
-	public Tournament getTournament() {
-		return tournament;
-	}
-
-	public void setTournament(Tournament tournament) {
-		this.tournament = tournament;
+	public int getTeam2BonusPoints() {
+		return team2BonusPoints;
 	}
 }
