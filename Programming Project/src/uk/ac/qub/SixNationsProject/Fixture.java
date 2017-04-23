@@ -1,7 +1,5 @@
 package uk.ac.qub.SixNationsProject;
 
-import java.util.Scanner;
-
 public class Fixture {
 
 	private int fixtureNumber;
@@ -10,7 +8,8 @@ public class Fixture {
 
 	/**
 	 * Constructor with args
-	 * 
+	 *
+	 * @param fixtureNumber
 	 * @param team1
 	 * @param team2
 	 */
@@ -20,6 +19,54 @@ public class Fixture {
 		this.setTeam1(team1);
 		this.setTeam2(team2);
 		this.setResult(new Result());
+	}
+
+	/**
+	 * This method switches the order of the teams in fixture
+	 */
+	public void fixtureSwitcher() {
+		Team temp = team1;
+		this.team1 = team2;
+		this.team2 = temp;
+	}
+
+	// Prints the results of the fixture in a readable format to System.out
+	public void printFixtureResult() {
+		System.out.println("\t\t" + team1.getName() + "\t vs\t" + team2.getName());
+		System.out.println("TRIES:\t\t" + result.getTeam1Tries() + "\t\t\t" + result.getTeam2Tries());
+		System.out.println("SCORE:\t\t" + result.getTeam1Score() + "\t\t\t" + result.getTeam2Score());
+		System.out.println("POINTS:\t\t" + result.getTeam1Points() + "\t\t\t" + result.getTeam2Points());
+		System.out.println("BONUS:\t\t" + result.getTeam1BonusPoints() + "\t\t\t" + result.getTeam2BonusPoints());
+		System.out.println("");
+	}
+
+	public void updateTeamsValues() {
+		// Set team 1 points and score
+		team1.addPoints(result.getTeam1Points());
+		team1.addBonusPoints(result.getTeam1BonusPoints());
+		team1.addScoreFor(result.getTeam1Score());
+		team1.addTries(result.getTeam1Tries());
+		team1.addScoreAgainst(result.getTeam2Score());
+		team1.incrementPlayed();
+
+		// Set team 2 points and score
+		team2.addPoints(result.getTeam2Points());
+		team2.addBonusPoints(result.getTeam2BonusPoints());
+		team2.addScoreFor(result.getTeam2Score());
+		team2.addTries(result.getTeam2Tries());
+		team2.addScoreAgainst(result.getTeam1Score());
+		team2.incrementPlayed();
+
+		if (result.getTeam1Score() > result.getTeam2Score()) {
+			team1.incrementWon();
+			team2.incrementLost();
+		} else if (result.getTeam2Score() > result.getTeam1Score()) {
+			team2.incrementWon();
+			team1.incrementLost();
+		} else {
+			team1.incrementDrawn();
+			team2.incrementDrawn();
+		}
 	}
 
 	/**
@@ -60,15 +107,6 @@ public class Fixture {
 		this.team2 = team2;
 	}
 
-	/**
-	 * This method switches the order of the teams in fixture
-	 */
-	public void fixtureSwitcher() {
-		Team temp = team1;
-		this.team1 = team2;
-		this.team2 = temp;
-	}
-
 	public int getFixtureNumber() {
 		return fixtureNumber;
 	}
@@ -77,13 +115,11 @@ public class Fixture {
 		this.fixtureNumber = fixtureNumber;
 	}
 
-	public void setResult(Result result)
-	{
+	public void setResult(Result result) {
 		this.result = result;
 	}
-	
-	public Result getResult()
-	{
+
+	public Result getResult() {
 		return result;
 	}
 }

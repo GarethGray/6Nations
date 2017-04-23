@@ -5,25 +5,23 @@ import java.util.Scanner;
 
 public final class ResultUtils {
 
-	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score, int[] team2Score)
-	{
-		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);		
+	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
+			int[] team2Score) {
+		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);
 		result.setScores(team1Score, team2Score);
 	}
-	
-	public static Result getResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber)
-	{
+
+	public static Result getResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber) {
 		ArrayList<Round> rounds = tournament.getRounds();
-		Round round = rounds.get(roundNumber - 1); 
-		
+		Round round = rounds.get(roundNumber - 1);
+
 		ArrayList<Fixture> fixtures = round.getFixtures();
 		Fixture fixture = fixtures.get(fixtureNumber - 1);
-		
+
 		return fixture.getResult();
 	}
-	
-	public static void promptToInsertScores(Tournament tournament) {
-		Scanner scanner = new Scanner(System.in);
+
+	public static void promptToInsertResults(Tournament tournament, Scanner scanner) {
 		int roundNumber = 0;
 		int fixtureNumber = 0;
 		Fixture chosenFixture;
@@ -64,27 +62,28 @@ public final class ResultUtils {
 		System.out.println(chosenFixture.getTeam2().getName() + " score:");
 		team2Score = scanner.nextInt();
 
-		scanner.close();
-		
-		int[] team1ScoreArray = {team1Tries, team1Score};
-		int[] team2ScoreArray = {team2Tries, team2Score};
-		
+		int[] team1ScoreArray = { team1Tries, team1Score };
+		int[] team2ScoreArray = { team2Tries, team2Score };
+
 		Result result = chosenFixture.getResult();
 		result.setScores(team1ScoreArray, team2ScoreArray);
-		printFixtureScores(chosenRound, chosenFixture);
+
+		// Update the teams with their points and scores
+		chosenFixture.updateTeamsValues();
+		chosenFixture.printFixtureResult();
 	}
-	
-	public static void printFixtureScores(Round round, Fixture fixture) {
-		
-		Team team1 = fixture.getTeam1();
-		Team team2 = fixture.getTeam2();	
-		Result result = fixture.getResult();
-		
-		System.out.println("Round: " + round.getNumber() + ", fixture: " + fixture.getFixtureNumber());
-		System.out.println("\t\t" + team1.getName() + "\t vs\t" + team2.getName());
-		System.out.println("TRIES:\t\t" + result.getTeam1Tries() + "\t\t\t" + result.getTeam2Tries());
-		System.out.println("SCORE:\t\t" + result.getTeam1Score() + "\t\t\t" + result.getTeam2Score());
-		System.out.println("POINTS:\t\t" + result.getTeam1Points() + "\t\t\t" + result.getTeam2Points());
-		System.out.println("BONUS:\t\t" + result.getTeam1BonusPoints() + "\t\t\t" + result.getTeam2BonusPoints());
+
+	public static void promptToPrintRoundResults(Tournament tournament, Scanner scanner) {
+		int roundNumber = 0;
+
+		System.out.println("Print the results of a round");
+		// asks user to select round to print the score of
+		while (roundNumber < 1 || roundNumber > tournament.getRounds().size()) {
+			System.out.println("Select round:");
+			roundNumber = scanner.nextInt();
+		}
+
+		Round round = tournament.getRounds().get(roundNumber - 1);
+		round.printRoundResults();
 	}
 }

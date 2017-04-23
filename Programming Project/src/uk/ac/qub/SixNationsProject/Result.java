@@ -1,34 +1,21 @@
 package uk.ac.qub.SixNationsProject;
 
 public class Result {
-	
-	// Tries and score for team 1 from the fixture
-	private int team1Tries;
-	private int team1Score;
 
-	// Points awarded to team 1 based on score of fixture
-	private int team1Points;
-	private int team1BonusPoints;
+	// Tries, score and points for team 1 from the fixture
+	private int team1Tries, team1Score, team1Points, team1BonusPoints = 0;
 
-	// Tries and score for team 2 from the fixture
-	private int team2Tries;
-	private int team2Score;
+	// Tries, score and points for team 2 from the fixture
+	private int team2Tries, team2Score, team2Points, team2BonusPoints = 0;
 
-	// Points awarded to team 2 based on score of fixture
-	private int team2Points;
-	private int team2BonusPoints;
-
-	private static int[] emptyArray = { 0, 0 };
-
-	// Result object to hold the scores of a fixture and the points awrded to
-	// teams dure to a fixture.
+	// Result object to hold the scores of a fixture and the points awarded to
+	// teams due to a fixture.
 	// Will be initialized with a default score of 0.
 	public Result() {
-		setScores(emptyArray, emptyArray);
 	}
 
 	// Sets the scores of the result object, then calculates and sets the points
-	// the teams should recieve
+	// the teams should receive
 	// @param team1 Array of team 1's tries and score
 	// @param team2 Array of team 2's tries and score
 	public void setScores(int[] team1, int[] team2) {
@@ -46,41 +33,48 @@ public class Result {
 		team1BonusPoints = 0;
 		team2Points = 0;
 		team2BonusPoints = 0;
-		
+
 		// Draw, award both teams 2 points
 		if (team1Score == team2Score) {
 			team1Points = team1Points + 2;
 			team2Points = team2Points + 2;
-		} else if (team1Score > team2Score) {
+		}
+		// Team 1 wins, award 4 points
+		else if (team1Score > team2Score) {
 			team1Points = team1Points + 4;
+			// if team 2 scored within 7, award 1 bonus point
 			if (team1Score - team2Score <= 7) {
 				team2Points++;
 				team2BonusPoints++;
 			}
-		} else if (team1Score < team2Score) {
+		}
+		// Team 2 wins, award 4 points
+		else if (team1Score < team2Score) {
 			team2Points = team2Points + 4;
+			// if team 1 scored within 7, award 1 bonus point
 			if (team2Score - team1Score <= 7) {
 				team1Points++;
 				team1BonusPoints++;
 			}
 		}
-		if (team2Tries >= 4) {
-			team2Points++;
-			team2BonusPoints++;
-		}
+		// Bonus point awarded for greater than 3 tries
 		if (team1Tries >= 4) {
 			team1Points++;
 			team1BonusPoints++;
 		}
+		if (team2Tries >= 4) {
+			team2Points++;
+			team2BonusPoints++;
+		}
 	}
-	
+
 	/**
-	 * Getters for the tries, scores, points and bonus points of each team
-	 * Note: There is no need for setters for these values. They should not be set indivdually,
-	 * 		 but rather with the setScores method above, which will also calculate the points to 
-	 * 		 be awarded. This prevents the scores/points from becoming out of sync.
+	 * Getters for the tries, scores, points and bonus points of each team Note:
+	 * There is no need for setters for these values. They should not be set
+	 * individually, but rather with the setScores method above, which will also
+	 * calculate the points to be awarded. This prevents the scores/points from
+	 * becoming out of sync.
 	 */
-	
 
 	/**
 	 * @return team1Tries The tries scored by team 1
@@ -95,7 +89,7 @@ public class Result {
 	public int getTeam1Score() {
 		return team1Score;
 	}
-	
+
 	/**
 	 * @return team1Points The points awarded to team 1
 	 */
@@ -123,14 +117,14 @@ public class Result {
 	public int getTeam2Score() {
 		return team2Score;
 	}
-	
+
 	/**
 	 * @return team2Points The points awarded to team 2
 	 */
 	public int getTeam2Points() {
 		return team2Points;
 	}
-	
+
 	/**
 	 * @return team2BonusPoints The bonus points awarded to team 2
 	 */
