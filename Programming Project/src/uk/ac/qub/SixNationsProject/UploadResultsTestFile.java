@@ -7,7 +7,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Laura McCormick
+ *
+ */
+
 public class UploadResultsTestFile {
+	
+	/**
+	 * This method reads in a given file and uses the values within it to update the scores of a fixture
+	 * 
+	 * @author Laura McCormick
+	 * @param tournament
+	 * @param fileName
+	 */
 	public static void uploadResults(Tournament tournament, String fileName) {
 		int roundNumber = 0;
 		int fixtureNumber = 0;
@@ -16,24 +30,25 @@ public class UploadResultsTestFile {
 		int team1Score;
 		int team2Tries;
 		int team2Score;
+		
+		// The info variable iterates after each piece of information is used
 		int info = 1;
 		
+		// An ArrayList is created containing the values from the file
 		ArrayList<String> list = readFile(fileName);
 		
-		// gleans round number from second line of file
+		// Gleans round number from second line of file
 		while (roundNumber < 1 || roundNumber > tournament.getRounds().size()) {
 			roundNumber = Integer.valueOf(list.get(info));
 		}
 		info++;
 		roundNumber--;
 
-		// prints fixtures of chosen round
+		// Selects round and determines number of fixtures in that round
 		Round chosenRound = tournament.getRounds().get(roundNumber);
-		chosenRound.printFixtures();
-		
 		int numberOfFixtures = chosenRound.getFixtures().size();
 		
-		// gleans fixture number from third line of file
+		// Gleans fixture number from third line of file
 		while (fixtureNumber < 1 || fixtureNumber > numberOfFixtures) {
 			fixtureNumber = Integer.valueOf(list.get(info));
 		}
@@ -60,11 +75,19 @@ public class UploadResultsTestFile {
 
 		// Update the teams with their points and scores
 		chosenFixture.updateTeamsValues();
+		System.out.println("Updated Fixture:");
 		chosenFixture.printFixtureResult();
-		
-		System.out.println("Done");
 	}
 	
+	
+	/**
+	 * This method reads in the file specified and creates an ArrayList, where each 
+	 * line is a new String in the list
+	 * 
+	 * @author Laura McCormick
+	 * @param fileName
+	 * @return ArrayList<String>
+	 */
 	public static ArrayList<String> readFile(String fileName) {
 		ArrayList<String> list = new ArrayList<String>();
 		
