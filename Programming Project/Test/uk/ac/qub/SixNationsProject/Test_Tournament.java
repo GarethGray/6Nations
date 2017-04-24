@@ -27,7 +27,7 @@ public class Test_Tournament {
 		year = 2017;
 		fixtures = new ArrayList<Fixture>();
 		teams = new ArrayList<>();
-		fg = new Tournament(teams,year);
+		fg = new Tournament(teams, year);
 
 		Team ireland = new Team(TeamName.IRELAND);
 		Team france = new Team(TeamName.FRANCE);
