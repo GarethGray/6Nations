@@ -6,7 +6,7 @@ package uk.ac.qub.SixNationsProject;
 import java.util.ArrayList;
 
 /**
- * @author 40189322
+ * @author Gareth Gray
  *
  */
 public class Round {

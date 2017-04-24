@@ -3,6 +3,12 @@ package uk.ac.qub.SixNationsProject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Grainne Jennings
+ *
+ */
+
 public final class ResultUtils {
 
 	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
@@ -21,6 +27,7 @@ public final class ResultUtils {
 		return fixture.getResult();
 	}
 
+// TODO connect to database and do some JDBC - Laura
 	public static void promptToInsertResults(Tournament tournament, Scanner scanner) {
 		int roundNumber = 0;
 		int fixtureNumber = 0;
@@ -29,7 +36,7 @@ public final class ResultUtils {
 		int team1Score;
 		int team2Tries;
 		int team2Score;
-
+		
 		// asks user to select round to input scores into
 		while (roundNumber < 1 || roundNumber > tournament.getRounds().size()) {
 			System.out.println("Select round:");

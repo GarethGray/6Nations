@@ -44,16 +44,18 @@ public class Application {
 
 		// Examples:
 		// Enter score by user input
-		ResultUtils.promptToInsertResults(tournament, scanner);
+		//ResultUtils.promptToInsertResults(tournament, scanner);
 
 		// Print the scores of a single round
-		ResultUtils.promptToPrintRoundResults(tournament, scanner);
+		//ResultUtils.promptToPrintRoundResults(tournament, scanner);
 
 		// Print the results of a whole tournament
-		tournament.printTournamentResults();
+		//tournament.printTournamentResults();
 
 		// Close the scanner
 		scanner.close();
+		
+		UploadResultsTestFile.uploadResults(tournament, "TeamUpdate");
 	}
 
 }
