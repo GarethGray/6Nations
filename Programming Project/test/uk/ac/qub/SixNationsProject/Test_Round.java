@@ -18,6 +18,7 @@ import org.junit.Test;
  */
 public class Test_Round {
 
+	// instantiation of bytearray stream to capture output from print method
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	
 	int validFixtureNumber, validRoundNumber;
@@ -118,7 +119,7 @@ public class Test_Round {
 	 * 
 	 */
 	@Test
-	public void testPrintFixtures() {
+	public void testPrintFixturesNotVoid() {
 		
 		
 		System.setOut(new PrintStream(outContent));
@@ -130,6 +131,33 @@ public class Test_Round {
 		
 		//Test that the output is not null
 		assertTrue(outContent.toString() != null);
+		
+		//set up expected output
+		String expected = ("Round " + round.getNumber()+"\n"+"1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName()+"\n"+
+		"2. "+fixture2.getTeam1().getName()+" vs "+fixture2.getTeam2().getName()+"\n"
+		+"3. "+fixture3.getTeam1().getName()+" vs "+fixture3.getTeam2().getName()+"\n"+" \n");
+		  
+		 //comparison
+		assertEquals(expected, outContent.toString());
+		
+		
+		System.setOut(null);
+
+		 
+	   
+	}
+	
+	@Test
+	public void testPrintFixtures() {
+		
+		
+		System.setOut(new PrintStream(outContent));
+		
+		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
+		
+		
+		round.printFixtures();
+		
 		
 		//set up expected output
 		String expected = ("Round " + round.getNumber()+"\n"+"1. "+fixture1.getTeam1().getName()+" vs "+fixture1.getTeam2().getName()+"\n"+
