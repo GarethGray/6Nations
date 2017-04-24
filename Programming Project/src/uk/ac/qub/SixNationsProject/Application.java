@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author 40189322
+ * @author 40189322, 40084540
  *
  */
 public class Application {
@@ -17,7 +17,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 
-		//creating all teams to play in the tournament
+		// creating all teams to play in the tournament
 		Team scotland = new Team(TeamName.SCOTLAND);
 		Team france = new Team(TeamName.FRANCE);
 		Team england = new Team(TeamName.ENGLAND);
@@ -25,8 +25,8 @@ public class Application {
 		Team wales = new Team(TeamName.WALES);
 		Team italy = new Team(TeamName.ITALY);
 
-		//adding all teams to an ArrayList that can be passed into
-		//the FixtureGenerator
+		// adding all teams to an ArrayList that can be passed into
+		// the FixtureGenerator
 		ArrayList<Team> teams = new ArrayList<>();
 		teams.add(scotland);
 		teams.add(france);
@@ -34,28 +34,26 @@ public class Application {
 		teams.add(ireland);
 		teams.add(wales);
 		teams.add(italy);
-		
-		//create new FixtureGenerator
-		FixtureGenerator fg = new FixtureGenerator();
-		
-		//create Tournament by passing in fixtures generated
-		//with year and ArrayList of teams
-		Tournament testTournament = fg.generateFixtures(2017, teams);
-		// ArrayList<Round> tournamentRounds = testTournament.getRounds();
-		// for(Round r : tournamentRounds){
-		//	 r.printFixtures();
-		// }
-		
-		//creating new Results for a given Fixture
-		// Result testResults = new Result(testTournament, 1, 1, 3, 40, 5, 20);
-		// testResults.printMatchScores();
-		
-		// Result testResults2 = new Result(testTournament, 1, 2, 3, 40, 5, 20);
-		// testResults2.printMatchScores();
-		
-		Result test = new Result();
-		test.insertScores(testTournament);
-	}
 
+		// Create a new tournament object
+		Tournament tournament = new Tournament(teams, 2017);
+
+		// Create System.in scanner, once closed another can't be opened (also
+		// closes System.in)
+		Scanner scanner = new Scanner(System.in);
+
+		// Examples:
+		// Enter score by user input
+		ResultUtils.promptToInsertResults(tournament, scanner);
+
+		// Print the scores of a single round
+		ResultUtils.promptToPrintRoundResults(tournament, scanner);
+
+		// Print the results of a whole tournament
+		tournament.printTournamentResults();
+
+		// Close the scanner
+		scanner.close();
+	}
 
 }
