@@ -21,7 +21,7 @@ public class Tournament {
 	public Tournament(ArrayList<Team> teams, int year) {
 		this.setTeams(teams);
 		this.setYear(year);
-		ArrayList<Round> rounds = generateRounds(year, teams);
+		ArrayList<Round> rounds = this.generateRounds(year, teams);
 		this.setRounds(rounds);
 	}
 
