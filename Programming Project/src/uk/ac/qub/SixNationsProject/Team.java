@@ -138,7 +138,7 @@ public class Team {
 	 * Setter for total score that has been scored against this team in all
 	 * fixtures
 	 */
-	public void setScoreAgainst(int scoreFor) {
+	public void setScoreAgainst(int score) {
 		this.scoreAgainst = scoreAgainst;
 	}
 

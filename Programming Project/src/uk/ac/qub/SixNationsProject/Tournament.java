@@ -10,14 +10,45 @@ public class Tournament {
 	private ArrayList<Round> rounds;
 
 	/**
-	 * Constructor with args
+	 * Constructor with args that only takes year as an argument.
+	 * Teams are automatically generated based on the current Six Nations teams
+	 * @param year
+	 * 			The year the tournament takes place
+	 */
+	public Tournament(int year){
+		// creating all teams to play in the tournament
+		Team scotland = new Team(TeamName.SCOTLAND);
+		Team france = new Team(TeamName.FRANCE);
+		Team england = new Team(TeamName.ENGLAND);
+		Team ireland = new Team(TeamName.IRELAND);
+		Team wales = new Team(TeamName.WALES);
+		Team italy = new Team(TeamName.ITALY);
+
+		// adding all teams to an ArrayList that can be passed into
+		// the FixtureGenerator
+		ArrayList<Team> teams = new ArrayList<>();
+		teams.add(scotland);
+		teams.add(france);
+		teams.add(england);
+		teams.add(ireland);
+		teams.add(wales);
+		teams.add(italy);
+		
+		this.setTeams(teams);
+		this.setYear(year);
+		ArrayList<Round> rounds = this.generateRounds(year, teams);
+		this.setRounds(rounds);
+	}
+	
+	/**
+	 * Constructor with args that allows users to create a Tournament with a different
+	 * array list of teams than the teams currently playing in the Six Nations
 	 * 
 	 * @param teams
 	 *            The list of teams playing in the tournament
 	 * @param year
 	 *            The year the tournament takes place
 	 */
-
 	public Tournament(ArrayList<Team> teams, int year) {
 		this.setTeams(teams);
 		this.setYear(year);
