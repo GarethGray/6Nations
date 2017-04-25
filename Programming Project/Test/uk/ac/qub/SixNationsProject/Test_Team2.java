@@ -2,13 +2,48 @@ package uk.ac.qub.SixNationsProject;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class Test_Team2 {
 
+	//set up data
+	
+	int validPoints, invalidPoints, validBonusPoints, invalidBonusPoints, validScoreFor, invalidScoreFor,
+	validScoreAgainst, invalidScoreAgainst, validPlayed, invalidPlayed, validWon, invalidWon, validLost,
+	invalidLost, validDrawn, invalidDrawn, validTries, invalidTries;
+	
+	private ArrayList<Team> teams;
+	
+	
+	Tournament t1 = new Tournament(teams, 2017);
+	
 	@Before
 	public void setUp() throws Exception {
+		
+		
+		
+		validPoints = 4;
+		invalidPoints = 6;
+		validBonusPoints = 1;
+		invalidBonusPoints = 5; //greater than total points
+		validScoreFor = 17;
+		invalidScoreFor = 4;
+		validScoreAgainst = 17;
+		invalidScoreAgainst = 4;
+		validPlayed = 2;
+		invalidPlayed = (t1.getTeams().size());
+		validWon = 4;
+		invalidWon = (t1.getTeams().size());
+		validLost = 4;
+		invalidLost = 6;
+		validDrawn = 2;
+		invalidDrawn = 6;
+		validTries = 3;
+		invalidTries = - 1;
+		
 		Team validTeam = new Team(TeamName.WALES);
 	}
 

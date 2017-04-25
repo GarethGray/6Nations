@@ -16,7 +16,7 @@ import org.junit.Test;
 public class Test_Tournament {
 
 	private ArrayList<Fixture> fixtures;
-	private Tournament fg;
+	private Tournament tournament;
 	private int year;
 	private ArrayList<Team> teams;
 	private ArrayList<Round> rounds;
@@ -27,7 +27,10 @@ public class Test_Tournament {
 		year = 2017;
 		fixtures = new ArrayList<Fixture>();
 		teams = new ArrayList<>();
+<<<<<<< HEAD
 		fg = new Tournament(teams, year);
+=======
+>>>>>>> branch 'New-Unit-Testing' of https://github.com/GarethGray/6Nations.git
 
 		Team ireland = new Team(TeamName.IRELAND);
 		Team france = new Team(TeamName.FRANCE);
@@ -42,8 +45,11 @@ public class Test_Tournament {
 		teams.add(france);
 		teams.add(england);
 		teams.add(ireland);
+		
+		tournament = new Tournament(teams,year);
 
-		rounds = fg.generateRounds(year, teams);
+
+		rounds = tournament.generateRounds(year, teams);
 		for (Round round : rounds) {
 			fixtures.addAll(round.getFixtures());
 		}
@@ -89,7 +95,7 @@ public class Test_Tournament {
 	 */
 	@Test
 	public void testCreateARound() {
-		Round round = fg.createARound(teams, 1);
+		Round round = tournament.createARound(teams, 1);
 		
 		assertEquals(3, round.getFixtures().size());
 	}
