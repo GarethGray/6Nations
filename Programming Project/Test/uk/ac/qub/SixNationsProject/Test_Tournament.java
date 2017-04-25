@@ -28,6 +28,10 @@ public class Test_Tournament {
 		year = 2017;
 		fixtures = new ArrayList<Fixture>();
 		teams = new ArrayList<>();
+<<<<<<< HEAD
+		fg = new Tournament(teams, year);
+=======
+>>>>>>> branch 'New-Unit-Testing' of https://github.com/GarethGray/6Nations.git
 
 		Team ireland = new Team(TeamName.IRELAND);
 		Team france = new Team(TeamName.FRANCE);
