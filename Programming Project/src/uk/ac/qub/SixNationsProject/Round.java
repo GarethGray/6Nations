@@ -121,9 +121,9 @@ public class Round {
 	}
 
 	public void setFixtures() {
-		fixtures.add(getFixture1());
-		fixtures.add(getFixture2());
-		fixtures.add(getFixture3());
+		fixtures.add(this.getFixture1());
+		fixtures.add(this.getFixture2());
+		fixtures.add(this.getFixture3());
 	}
 
 	public void printRoundResults() {
