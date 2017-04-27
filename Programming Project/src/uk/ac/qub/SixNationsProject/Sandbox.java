@@ -1,12 +1,21 @@
 package uk.ac.qub.SixNationsProject;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Sandbox {
 	
 
 	public static void main(String[] args) {
+		// conn opens a connection to the database
+		// insertTeam is a batch statement used later
+		try{
+			Connection conn = DbConnect.getRemoteConnection();
+			Statement insertTeam = conn.createStatement();
+		
 		ArrayList<Fixture> fixtures;
 		Tournament tournament;
 		int year;
@@ -36,6 +45,15 @@ public class Sandbox {
 		teams.add(england);
 		teams.add(ireland);
 
+		// This for loop iterates through all Six Nations teams and adds them to the insertTeam batch statement
+		for(int i = 0; i<teams.size(); i++){
+			String insertTeamNames="INSERT INTO Team Values('"+teams.get(i).getName()+"');";
+			insertTeam.addBatch(insertTeamNames);
+		}
+		// insertTeam executes the batch, adding all teams to the database
+		insertTeam.executeBatch();
+		insertTeam.close();
+		
 		tournament = new Tournament(teams, year);
 
 		rounds = tournament.generateRounds(year, teams);
@@ -71,7 +89,9 @@ public class Sandbox {
 		rounds.add(round);
 		
 		tournament.printTournamentResults();
-
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 
 }
