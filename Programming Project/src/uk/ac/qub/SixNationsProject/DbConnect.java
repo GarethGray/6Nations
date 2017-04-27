@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class DbConnect {
 
-	public static void main(String args[]) throws SQLException {
+	public static void createDB() throws SQLException {
 
 		Connection conn = getRemoteConnection();
 
