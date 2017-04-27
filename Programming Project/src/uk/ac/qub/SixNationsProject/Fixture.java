@@ -3,6 +3,7 @@ package uk.ac.qub.SixNationsProject;
 public class Fixture {
 
 	private int fixtureNumber;
+	private int fixtureID;
 	private Team team1, team2;
 	private Result result;
 
@@ -121,5 +122,13 @@ public class Fixture {
 
 	public Result getResult() {
 		return result;
+	}
+
+	public int getFixtureID() {
+		return fixtureID;
+	}
+
+	public void setFixtureID(int fixtureID) {
+		this.fixtureID = fixtureID;
 	}
 }

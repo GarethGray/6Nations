@@ -164,7 +164,7 @@ public class Team {
 	/**
 	 * Setter for games played
 	 */
-	public void setPlayed(int played) {
+	public void addPlayed(int played) {
 		this.played = played;
 	}
 
