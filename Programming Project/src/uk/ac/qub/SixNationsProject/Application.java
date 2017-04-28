@@ -97,6 +97,7 @@ public class Application {
 				choice = menuChoice.nextInt();
 				// if the user selects manual input, the method calls ResultUtils.promptToInsertResults()
 				if (choice == 1) {
+					// TODO finish inserts for promptToInsertResults method
 					ResultUtils.promptToInsertResults(tournament, new Scanner(System.in));
 				// if the user selects input from a file, they are asked the name of the file
 				// this is passed into UploadResultsTestFile.uploadResults()
@@ -114,10 +115,13 @@ public class Application {
 		// if the user selects View Match Results, they are asked to select the match to view
 		// results for and this is executed by //TODO which method?
 		case 3:
+			// TODO return match results from database
 			break;
 			
 		// if the user selects View League Table, the league table is retrieved from the database and displayed
 		case 4:
+			// TODO league table logic!
+			// TODO return league table from database
 			break;
 		
 		// if the user selects Exit, the system displays a confirmation message and ends

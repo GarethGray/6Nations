@@ -1,7 +1,11 @@
 package uk.ac.qub.SixNationsProject;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Tournament {
 
@@ -105,9 +109,16 @@ public class Tournament {
 	 * @return new Round
 	 */
 	public Round createARound(ArrayList<Team> teams, int roundNumber) {
+		try {
 
+			
 		return new Round(new Fixture(1, teams.get(0), teams.get(5)), new Fixture(2, teams.get(1), teams.get(4)),
 				new Fixture(3, teams.get(2), teams.get(3)), roundNumber);
+		} catch (Exception e){
+			e.printStackTrace();
+			return new Round(new Fixture(1, teams.get(0), teams.get(5)), new Fixture(2, teams.get(1), teams.get(4)),
+					new Fixture(3, teams.get(2), teams.get(3)), roundNumber);
+		}
 
 	}
 
