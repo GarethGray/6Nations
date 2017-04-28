@@ -36,18 +36,11 @@ public class DbConnect {
 
 			String createTeam = "CREATE TABLE Team (TeamName char(50), PRIMARY KEY(TeamName));";
 
-			/**
-			 * TODO Updated createFixture, needs checking -- Laura
-			 * 
-			 * String createFixture = "CREATE TABLE Fixture (FixtureID INT not null auto_increment, TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
-			 * +"FixtureNo numeric(1,0), RoundNo numeric(1,0), PRIMARY KEY(FixtureID), FOREIGN KEY (TeamNameHome) REFERENCES Team(TeamName) ON DELETE NO ACTION, FOREIGN KEY (TeamNameAway) REFERENCES Team(TeamName) ON DELETE "+
-			 * "NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-			 */
+
+			  String createFixture = "CREATE TABLE Fixture (FixtureID numeric, TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
+			  +"FixtureNo numeric(1,0), RoundNo numeric(1,0), PRIMARY KEY(FixtureID), FOREIGN KEY (TeamNameHome) REFERENCES Team(TeamName) ON DELETE NO ACTION, FOREIGN KEY (TeamNameAway) REFERENCES Team(TeamName) ON DELETE "+
+			  "NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 			
-			String createFixture = "CREATE TABLE Fixture (TeamName char(50), Year numeric(4,0), FixtureID int not null auto_increment, RoundNo numeric(1,0),  "
-
-					+ " PRIMARY KEY(FixtureID, TeamName), FOREIGN KEY (TeamName) REFERENCES Team(TeamName) ON DELETE NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-
 			String createFixtureResult = "CREATE TABLE FixtureResult (Year numeric(4,0), FixtureID int not null auto_increment, TeamName char(50), Tries numeric(3,0), Score numeric(3,0),"
 
 					+ " PRIMARY KEY(FixtureID, TeamName), FOREIGN KEY (TeamName) REFERENCES Team(TeamName)ON DELETE NO ACTION,"

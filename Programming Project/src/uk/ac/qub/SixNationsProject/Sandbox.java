@@ -104,6 +104,12 @@ public class Sandbox {
 				System.out.println("Team name:" + rs.getString("TeamName"));
 
 			}
+			
+			rs = checkWorks.executeQuery("SELECT * FROM Fixture;");
+			
+			while (rs.next()){
+				System.out.println("Fixture ");
+			}
 
 			tournament = new Tournament(teams, year);
 
