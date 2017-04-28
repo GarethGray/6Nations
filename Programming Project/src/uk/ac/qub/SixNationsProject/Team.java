@@ -18,6 +18,13 @@ public class Team {
 	private int points, bonusPoints, scoreFor, scoreAgainst, played, won, lost, drawn, tries = 0;
 
 	/**
+	 * default constructor
+	 */
+	public Team(){
+		
+	}
+	
+	/**
 	 * constructor with args
 	 * 
 	 * @param name
@@ -164,7 +171,7 @@ public class Team {
 	/**
 	 * Setter for games played
 	 */
-	public void addPlayed(int played) {
+	public void setPlayed(int played) {
 		this.played = played;
 	}
 

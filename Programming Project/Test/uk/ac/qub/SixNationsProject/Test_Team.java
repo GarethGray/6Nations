@@ -263,7 +263,59 @@ public class Test_Team {
 
 	@Test
 	public void testGetValues() {
-		fail("Not yet implemented");
+
+		/**
+		 * Set up expected object
+		 */
+		Team expected = new Team();
+		
+		/**
+		 * set data for expected
+		 */
+		expected.setPoints(validPoints);
+		expected.setBonusPoints(validBonusPoints);
+		expected.setScoreFor(validScoreFor);
+		expected.setScoreAgainst(validScoreAgainst);
+		expected.setPlayed(validPlayed);
+		expected.setWon(validPlayed);
+		expected.setDrawn(validDrawn);
+		expected.setLost(validLost);
+		expected.setTries(validTries);
+		
+		/**
+		 * simulate method call on expected object
+		 */
+		Map<String, Integer> teamValues = new HashMap<>();
+		
+		teamValues.put("points", expected.getPoints());
+		teamValues.put("bonusPoints", expected.getBonusPoints());
+		teamValues.put("scoreFor", expected.getScoreFor());
+		teamValues.put("scoreAgainst", expected.getScoreAgainst());
+		teamValues.put("played", expected.getPlayed());
+		teamValues.put("won", expected.getWon());
+		teamValues.put("drawn", expected.getDrawn());
+		teamValues.put("lost", expected.getLost());
+		teamValues.put("tries", expected.getTries());
+		
+		/**
+		 * set up actual object
+		 */
+		Team team = new Team();
+		team.setPoints(validPoints);
+		team.setBonusPoints(validBonusPoints);
+		team.setScoreFor(validScoreFor);
+		team.setScoreAgainst(validScoreAgainst);
+		team.setPlayed(validPlayed);
+		team.setWon(validPlayed);
+		team.setDrawn(validDrawn);
+		team.setLost(validLost);
+		team.setTries(validTries);
+	
+		/**
+		 * compare map from actual method call to simulated call on expected object
+		 */
+		assertEquals(team.getValues(), teamValues);
+		
 	}
 
 }
