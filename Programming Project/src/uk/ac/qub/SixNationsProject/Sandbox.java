@@ -110,7 +110,9 @@ public class Sandbox {
 
 			tournament.printTournamentResults();
 
-			// ResultUtils.promptToInsertResults(tournament, scanner);
+			ResultUtils.promptToInsertResults(tournament, scanner);
+			
+			conn.close();
 
 		} catch (SQLException e) {
 

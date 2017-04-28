@@ -1,5 +1,8 @@
 package uk.ac.qub.SixNationsProject;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,10 +45,10 @@ public final class ResultUtils {
 			System.out.println("Select round:");
 			roundNumber = scanner.nextInt();
 		}
-		roundNumber--;
+		
 
 		// prints fixtures of chosen round
-		Round chosenRound = tournament.getRounds().get(roundNumber);
+		Round chosenRound = tournament.getRounds().get(roundNumber-1);
 		chosenRound.printFixtures();
 
 		int numberOfFixtures = chosenRound.getFixtures().size();
@@ -54,8 +57,7 @@ public final class ResultUtils {
 			System.out.println("Select fixture:");
 			fixtureNumber = scanner.nextInt();
 		}
-		fixtureNumber--;
-		chosenFixture = chosenRound.getFixtures().get(fixtureNumber);
+		chosenFixture = chosenRound.getFixtures().get(fixtureNumber-1);
 
 		// asks user to input scores for each team
 		System.out.println("Please enter scores:");
@@ -78,6 +80,26 @@ public final class ResultUtils {
 		// Update the teams with their points and scores
 		chosenFixture.updateTeamsValues();
 		chosenFixture.printFixtureResult();
+		
+		// the code inside the try block inserts results for each team in the fixture specified
+		try {
+			Connection conn = DbConnect.getRemoteConnection();
+			Statement insertResult = conn.createStatement();
+			
+			String newResultTeamHome = "INSERT INTO FixtureResult Values("+tournament.getYear()+", '"+ tournament.getYear() + "" + roundNumber + "" + fixtureNumber + "', '"+chosenFixture.getTeam1().getName()+"'"
+					+ ", "+team1Tries+", "+team1Score+");";
+			String newResultTeamAway = "INSERT INTO FixtureResult Values("+tournament.getYear()+", '"+ tournament.getYear() + "" + roundNumber + "" + fixtureNumber + "', '"+chosenFixture.getTeam2().getName()+"'"
+					+ ", "+team2Tries+", "+team2Score+");";
+			
+			insertResult.addBatch(newResultTeamHome);
+			insertResult.addBatch(newResultTeamAway);
+			insertResult.executeBatch();
+			insertResult.close();
+			
+			conn.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 
 	public static void promptToPrintRoundResults(Tournament tournament, Scanner scanner) {

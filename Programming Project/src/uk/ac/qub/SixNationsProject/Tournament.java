@@ -217,6 +217,8 @@ public class Tournament {
 
 			insertFixture.close();
 
+			conn.close();
+			
 			return new Round(new Fixture(1, teams.get(0), teams.get(5)), new Fixture(2, teams.get(1), teams.get(4)),
 
 					new Fixture(3, teams.get(2), teams.get(3)), roundNumber);
