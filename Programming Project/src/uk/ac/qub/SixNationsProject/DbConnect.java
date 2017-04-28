@@ -36,11 +36,10 @@ public class DbConnect {
 
 			String createTeam = "CREATE TABLE Team (TeamName char(50), PRIMARY KEY(TeamName));";
 
+			String createFixture = "CREATE TABLE Fixture (FixtureID char(8), TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
+					+ "FixtureNo numeric(1,0), RoundNo numeric(1,0), PRIMARY KEY(FixtureID), ADD CONSTRAINT teamhfk FOREIGN KEY (TeamNameHome) REFERENCES Team(TeamName) ON DELETE NO ACTION, ADD CONSTRAINT teamafk FOREIGN KEY (TeamNameAway) REFERENCES Team(TeamName) ON DELETE "
+					+ "NO ACTION);";
 
-			  String createFixture = "CREATE TABLE Fixture (FixtureID char(8), TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
-			  +"FixtureNo numeric(1,0), RoundNo numeric(1,0), PRIMARY KEY(FixtureID), FOREIGN KEY (TeamNameHome) REFERENCES Team(TeamName) ON DELETE NO ACTION, FOREIGN KEY (TeamNameAway) REFERENCES Team(TeamName) ON DELETE "+
-			  "NO ACTION);";
-			
 			String createFixtureResult = "CREATE TABLE FixtureResult (Year numeric(4,0), FixtureID char(8), TeamName char(50), Tries numeric(3,0), Score numeric(3,0),"
 
 					+ " PRIMARY KEY(FixtureID, TeamName), FOREIGN KEY (TeamName) REFERENCES Team(TeamName)ON DELETE NO ACTION,"
