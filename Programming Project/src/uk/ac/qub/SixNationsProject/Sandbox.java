@@ -41,6 +41,7 @@ public class Sandbox {
 			ArrayList<Round> rounds;
 
 			// instantiation of bytearray stream to capture output from print
+
 			// method
 
 			ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -104,66 +105,12 @@ public class Sandbox {
 				System.out.println("Team name:" + rs.getString("TeamName"));
 
 			}
-			
-			rs = checkWorks.executeQuery("SELECT * FROM Fixture;");
-			
-			while (rs.next()){
-				System.out.println("Fixture ");
-			}
 
 			tournament = new Tournament(teams, year);
 
-			rounds = tournament.generateRounds(year, teams);
-
-			for (Round round : rounds) {
-
-				fixtures.addAll(round.getFixtures());
-
-			}
-
-			fixture1 = new Fixture(1, ireland, france);
-
-			fixture2 = new Fixture(2, england, italy);
-
-			fixture3 = new Fixture(3, wales, scotland);
-
-			int[] team1score = { 22, 4 };
-
-			int[] team2score = { 0, 0 };
-
-			// team3score
-
-			// team4score
-
-			// team5score
-
-			// team6score;
-
-			result1 = new Result();
-
-			result1.setScores(team1score, team2score);
-
-			result2 = new Result();
-
-			result2.setScores(team1score, team2score);
-
-			result3 = new Result();
-
-			result3.setScores(team1score, team2score);
-
-			fixture1.setResult(result1);
-
-			fixture2.setResult(result2);
-
-			fixture3.setResult(result3);
-
-			Round round = new Round(fixture1, fixture2, fixture3, 1);
-
-			rounds.add(round);
-
 			tournament.printTournamentResults();
 
-			//ResultUtils.promptToInsertResults(tournament, scanner);
+			// ResultUtils.promptToInsertResults(tournament, scanner);
 
 		} catch (SQLException e) {
 

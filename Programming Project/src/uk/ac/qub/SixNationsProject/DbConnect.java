@@ -1,3 +1,4 @@
+
 package uk.ac.qub.SixNationsProject;
 
 import java.sql.Connection;
@@ -36,9 +37,12 @@ public class DbConnect {
 
 			String createTeam = "CREATE TABLE Team (TeamName char(50), PRIMARY KEY(TeamName));";
 
-			String createFixture = "CREATE TABLE Fixture (FixtureID char(8), TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
-					+ "FixtureNo numeric(1,0), RoundNo numeric(1,0), PRIMARY KEY(FixtureID), ADD CONSTRAINT teamhfk FOREIGN KEY (TeamNameHome) REFERENCES Team(TeamName) ON DELETE NO ACTION, ADD CONSTRAINT teamafk FOREIGN KEY (TeamNameAway) REFERENCES Team(TeamName) ON DELETE "
-					+ "NO ACTION);";
+			String createFixture = "Create table Fixture(FixtureID char(8), TeamNameHome char(50), TeamNameAway char(50), Year numeric(4,0),"
+					+
+
+					"FixtureNo numeric(1,0), RoundNo numeric(1,0),Primary key(Fixtureid)," +
+
+					" foreign key (TeamNameHome) references Team(teamName),foreign key (TeamNameAway) references Team(teamName));";
 
 			String createFixtureResult = "CREATE TABLE FixtureResult (Year numeric(4,0), FixtureID char(8), TeamName char(50), Tries numeric(3,0), Score numeric(3,0),"
 
@@ -47,13 +51,14 @@ public class DbConnect {
 					+ " FOREIGN KEY (FixtureID) REFERENCES Fixture(FixtureID) ON DELETE NO ACTION);";
 
 			// Should Fixture Result also record win/loses or can calculate
+
 			// comparing both teams of fixture?
 
 			String createLeague = "CREATE TABLE League (Year numeric(4,0), FixtureID char(8), TeamName char(50), GamesPlayed numeric(1,0), PointsScored numeric (4,0), "
 
 					+ " PointsConceded numeric (4,0), Tries numeric(3,0), BonusPoints numeric(4,0), TotalPoints numeric(4,0),"
 
-					+ " PRIMARY KEY(Year, FixtureID, TeamName),"
+					+ " PRIMARY KEY(FixtureID, TeamName),"
 
 					+ " FOREIGN KEY (TeamName) REFERENCES Team(TeamName)ON DELETE NO ACTION, "
 
