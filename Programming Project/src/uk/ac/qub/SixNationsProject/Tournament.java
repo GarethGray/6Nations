@@ -110,11 +110,27 @@ public class Tournament {
 	 */
 	public Round createARound(ArrayList<Team> teams, int roundNumber) {
 		try {
-
+			Connection conn = DbConnect.getRemoteConnection();
+			Statement insertFixture = conn.createStatement();
+			DbConnect.createDB();
+			String newFixture1 = "INSERT INTO Fixture Values('Fixture1', '" + teams.get(0).getName() + "', '"+ teams.get(5).getName()+"', "+this.getYear()
+					+ ", "+1+", "+roundNumber+");";
+			insertFixture.addBatch(newFixture1);
+			
+			String newFixture2 = "INSERT INTO Fixture Values('Fixture2', '" + teams.get(1).getName() + "', '"+ teams.get(4).getName()+"', "+this.getYear()
+					+ ", "+2+", "+roundNumber+");";
+			insertFixture.addBatch(newFixture2);
+			
+			String newFixture3 = "INSERT INTO Fixture Values('Fixture3', '" + teams.get(2).getName() + "', '"+ teams.get(3).getName()+"', "+this.getYear()
+					+ ", "+3+", "+roundNumber+");";
+			insertFixture.addBatch(newFixture3);
+			
+			insertFixture.executeBatch();
+			insertFixture.close();
 			
 		return new Round(new Fixture(1, teams.get(0), teams.get(5)), new Fixture(2, teams.get(1), teams.get(4)),
 				new Fixture(3, teams.get(2), teams.get(3)), roundNumber);
-		} catch (Exception e){
+		} catch (SQLException e){
 			e.printStackTrace();
 			return new Round(new Fixture(1, teams.get(0), teams.get(5)), new Fixture(2, teams.get(1), teams.get(4)),
 					new Fixture(3, teams.get(2), teams.get(3)), roundNumber);
