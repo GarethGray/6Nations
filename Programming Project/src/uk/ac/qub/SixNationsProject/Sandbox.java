@@ -26,7 +26,7 @@ public class Sandbox {
 				System.out.println("Team name: " + rs.getString("TeamName"));
 			}
 
-			System.out.println("\n ----- \n ResultUtils.promptToInsertResults:\n");
+			System.out.println("----- \n ResultUtils.promptToInsertResults:\n");
 			ResultUtils.promptToInsertResults(scanner);
 			
 			conn.close();
