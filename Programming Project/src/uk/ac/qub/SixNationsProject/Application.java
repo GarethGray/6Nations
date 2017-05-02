@@ -97,8 +97,7 @@ public class Application {
 				choice = menuChoice.nextInt();
 				// if the user selects manual input, the method calls ResultUtils.promptToInsertResults()
 				if (choice == 1) {
-					// TODO finish inserts for promptToInsertResults method
-					ResultUtils.promptToInsertResults(tournament, new Scanner(System.in));
+					ResultUtils.promptToInsertResults(new Scanner(System.in));
 				// if the user selects input from a file, they are asked the name of the file
 				// this is passed into UploadResultsTestFile.uploadResults()
 				} else if (choice == 2) {
