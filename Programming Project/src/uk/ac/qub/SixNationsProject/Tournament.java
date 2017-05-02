@@ -1,7 +1,7 @@
 package uk.ac.qub.SixNationsProject;
 
 import java.sql.Connection;
-
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
@@ -66,6 +66,20 @@ public class Tournament {
 
 		this.setYear(year);
 
+		// this populates the database with the teams
+		try {
+			Connection conn = DbConnect.getRemoteConnection();
+			Statement insertTeam = conn.createStatement();
+			for (int i = 0; i < teams.size(); i++) {
+				String insertTeamNames = "INSERT INTO Team Values('" + teams.get(i).getName() + "');";
+				insertTeam.addBatch(insertTeamNames);
+			}
+			insertTeam.executeBatch();
+			insertTeam.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		ArrayList<Round> rounds = this.generateRounds(year, teams);
 
 		this.setRounds(rounds);
