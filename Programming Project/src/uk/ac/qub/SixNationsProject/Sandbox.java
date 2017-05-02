@@ -30,7 +30,6 @@ public class Sandbox {
 
 			DbConnect.createDB();
 
-			ArrayList<Fixture> fixtures;
 
 			Tournament tournament;
 
@@ -38,25 +37,14 @@ public class Sandbox {
 
 			ArrayList<Team> teams;
 
-			ArrayList<Round> rounds;
 
-			// instantiation of bytearray stream to capture output from print
-
-			// method
+			// instantiation of bytearray stream to capture output from print method
 
 			ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-			Fixture fixture1, fixture2, fixture3;
-
-			Result result1, result2, result3;
-
-			int[] team3score, team4score, team5score, team6score;
 
 			// TODO Auto-generated method stub
 
 			year = 2017;
-
-			fixtures = new ArrayList<Fixture>();
 
 			teams = new ArrayList<>();
 

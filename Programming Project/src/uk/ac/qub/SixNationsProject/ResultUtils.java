@@ -32,6 +32,7 @@ public final class ResultUtils {
 
 // TODO connect to database and do some JDBC - Laura
 	public static void promptToInsertResults(Tournament tournament, Scanner scanner) {
+		int tournamentYear=0;
 		int roundNumber = 0;
 		int fixtureNumber = 0;
 		Fixture chosenFixture;
@@ -39,6 +40,12 @@ public final class ResultUtils {
 		int team1Score;
 		int team2Tries;
 		int team2Score;
+		
+		// asks user to select tournament
+		while (tournamentYear < 1) {
+			System.out.println("Select tournament year:");
+			tournamentYear = scanner.nextInt();
+		}
 		
 		// asks user to select round to input scores into
 		while (roundNumber < 1 || roundNumber > tournament.getRounds().size()) {
