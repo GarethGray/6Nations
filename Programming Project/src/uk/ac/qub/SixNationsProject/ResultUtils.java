@@ -168,7 +168,7 @@ public final class ResultUtils {
 			ResultSet rs = getResult.executeQuery(
 					"SELECT TeamName, Tries, Score FROM FixtureResult WHERE FixtureID = '" + fixtureID + "';");
 			while (rs.next()) {
-				System.out.println(rs.getString("TeamName") + rs.getString("Tries") + rs.getString("Score"));
+				System.out.println(rs.getString("TeamName") + " Tries: "+rs.getString("Tries") + ", Score: " +rs.getString("Score"));
 			}
 
 			conn.close();
