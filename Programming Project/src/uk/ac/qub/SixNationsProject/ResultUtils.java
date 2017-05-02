@@ -91,8 +91,8 @@ public final class ResultUtils {
 		System.out.println(teamAway + " score:");
 		teamAScore = scanner.nextInt();
 
-		int[] team1ScoreArray = { teamHTries, teamHScore };
-		int[] team2ScoreArray = { teamATries, teamAScore };
+		//int[] team1ScoreArray = { teamHTries, teamHScore };
+		//int[] team2ScoreArray = { teamATries, teamAScore };
 
 		//Result result = chosenFixture.getResult();
 		//result.setScores(team1ScoreArray, team2ScoreArray);
