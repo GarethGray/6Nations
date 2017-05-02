@@ -29,6 +29,9 @@ public class Sandbox {
 			System.out.println("----- \n ResultUtils.promptToInsertResults:\n");
 			ResultUtils.promptToInsertResults(scanner);
 			
+			System.out.println("----- \n ResultUtils.getResultsForFixtureDB:\n");
+			ResultUtils.getResultForFixtureDB(scanner);
+			
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

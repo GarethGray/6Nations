@@ -166,7 +166,7 @@ public final class ResultUtils {
 			// uses user-inputted values to select HOME team from database
 			Statement getResult = conn.createStatement();
 			ResultSet rs = getResult.executeQuery(
-					"SELECT TeamName AND Tries AND Score FROM FixtureResult WHERE FixtureID = '" + fixtureID + "';");
+					"SELECT TeamName, Tries, Score FROM FixtureResult WHERE FixtureID = '" + fixtureID + "';");
 			while (rs.next()) {
 				System.out.println(rs.getString("TeamName") + rs.getString("Tries") + rs.getString("Score"));
 			}
