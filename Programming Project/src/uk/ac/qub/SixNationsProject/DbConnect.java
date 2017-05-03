@@ -54,15 +54,13 @@ public class DbConnect {
 
 			// comparing both teams of fixture?
 
-			String createLeague = "CREATE TABLE League (Year numeric(4,0), FixtureID char(8), TeamName char(50), GamesPlayed numeric(1,0), PointsScored numeric (4,0), "
+			String createLeague = "CREATE TABLE League (Year numeric(4,0), TeamName char(50), GamesPlayed numeric(1,0), PointsScored numeric (4,0), "
 
 					+ " PointsConceded numeric (4,0), Tries numeric(3,0), BonusPoints numeric(4,0), TotalPoints numeric(4,0),"
 
-					+ " PRIMARY KEY(FixtureID, TeamName),"
+					+ " PRIMARY KEY(Year, TeamName),"
 
-					+ " FOREIGN KEY (TeamName) REFERENCES Team(TeamName)ON DELETE NO ACTION, "
-
-					+ " FOREIGN KEY (FixtureID) REFERENCES Fixture(FixtureID) ON DELETE NO ACTION);";
+					+ " FOREIGN KEY (TeamName) REFERENCES Team(TeamName)ON DELETE NO ACTION);";
 
 			// execute drop statements
 
