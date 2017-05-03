@@ -13,6 +13,7 @@ import java.util.Scanner;
  * @author Aine Kane
  * @author Laura McCormick
  * @author Matt McQuillan
+ * @author Gareth Gray
  *
  */
 
@@ -112,6 +113,8 @@ public final class ResultUtils {
 			// chosenFixture.updateTeamsValues();
 			// chosenFixture.printFixtureResult();
 
+			
+			// checks the values the user has entered
 			if(validateScore(teamHTries, teamHScore) && validateScore(teamATries, teamAScore)) {
 			
 			Statement insertResult = conn.createStatement();
@@ -135,7 +138,7 @@ public final class ResultUtils {
 			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 
 			conn.close();} else {
-				System.out.println("The score you have entered cannot be valid. Please check it and try entering it again.");
+				System.out.println("The score you have entered cannot be valid. Please check it and try again.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
