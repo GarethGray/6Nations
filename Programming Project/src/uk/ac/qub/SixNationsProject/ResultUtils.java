@@ -317,4 +317,27 @@ public final class ResultUtils {
 		
 		
 	}
+	
+	/**
+	 * Takes the user inputted values and checks to see if this can constitute a valid rugby score
+	 * @param tries
+	 * @param score
+	 * @return boolean validScore
+	 */
+	public static boolean validateScore(int tries, int score) {
+		boolean validScore = true;
+
+		if (score == 2 || score == 3 || score == 4 || (5*tries)>score){
+			validScore = false;
+		}
+		
+		if (tries!=0){
+			if(score%tries == 1){
+				validScore = false;
+			}
+		}
+		
+
+			return validScore;
+	}
 }
