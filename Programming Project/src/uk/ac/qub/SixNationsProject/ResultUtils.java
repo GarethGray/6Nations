@@ -18,7 +18,7 @@ public final class ResultUtils {
 	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
 			int[] team2Score) {
 		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);
-		result.setScores(team1Score, team2Score);
+		//result.setScores(team1Score, team2Score);
 	}
 
 	public static Result getResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber) {
@@ -43,6 +43,7 @@ public final class ResultUtils {
 			int teamHScore;
 			int teamATries;
 			int teamAScore;
+			String fixtureID;
 			String teamHome = null;
 			String teamAway = null;
 
@@ -63,7 +64,8 @@ public final class ResultUtils {
 				System.out.println("Select fixture:");
 				fixtureNumber = scanner.nextInt();
 			}
-
+			fixtureID = Integer.toString(tournamentYear) + Integer.toString(roundNumber) + Integer.toString(fixtureNumber);
+			
 			// uses user-inputted values to select HOME team from database
 			Statement getTeams = conn.createStatement();
 			ResultSet rs = getTeams.executeQuery("SELECT TeamNameHome FROM Fixture WHERE Year = " + tournamentYear
@@ -79,7 +81,7 @@ public final class ResultUtils {
 			while (rs.next()) {
 				teamAway = rs.getString("TeamNameAway");
 			}
-			System.out.println("\nHome team: " + teamAway);
+			System.out.println("\nAway team: " + teamAway);
 
 			// asks user to input scores for each team
 			System.out.println("Please enter scores:");
@@ -119,6 +121,7 @@ public final class ResultUtils {
 			insertResult.addBatch(newResultTeamAway);
 			insertResult.executeBatch();
 			insertResult.close();
+			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 
 			conn.close();
 		} catch (SQLException e) {
@@ -173,13 +176,13 @@ public final class ResultUtils {
 
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public static void promptToPrintRoundResults(Tournament tournament, Scanner scanner) {
 		int roundNumber = 0;
+		
 
 		System.out.println("Print the results of a round");
 		// asks user to select round to print the score of
@@ -190,5 +193,65 @@ public final class ResultUtils {
 
 		Round round = tournament.getRounds().get(roundNumber - 1);
 		round.printRoundResults();
+	}
+	
+	public static void updateLeague(int year, String teamHome, String teamAway, int teamHTries, int teamHScore, int teamATries, int teamAScore){
+		int homeGamesPlayed=0;
+		int teamHomeScore=0;
+		int teamHomePointsConceded=0;
+		int teamHomeTries = 0;
+		int teamHomeBonusPoints=0;
+		int awayGamesPlayed=0;
+		int teamAwayScore=0;
+		int teamAwayTries =0;
+		int teamAwayBonusPoints=0;
+		int teamAwayPointsConceded=0;
+		
+		try {
+			Connection conn = DbConnect.getRemoteConnection();
+			Statement updateLeague = conn.createStatement();
+			
+			int[] bonusPoints = Result.calculateBonusPoints(year, teamHome, teamHScore, teamHTries, teamAway, teamAScore, teamATries);
+			// selects HOME team tries and scores from League table in database
+			Statement getLeagueTable = conn.createStatement();
+			ResultSet rs = getLeagueTable.executeQuery(
+					"SELECT GamesPlayed, PointsScored, PointsConceded, Tries, BonusPoints FROM League WHERE Year = " + year + " AND TeamName = '"+teamHome+"';");
+			while (rs.next()) {
+				homeGamesPlayed = Integer.valueOf(rs.getString("GamesPlayed"))+1;
+				teamHomeScore = teamHScore + Integer.valueOf(rs.getString("PointsScored"));
+				teamHomePointsConceded = teamAScore + Integer.valueOf(rs.getString("PointsConceded"));
+				teamHomeTries = teamHTries + Integer.valueOf(rs.getString("Tries"));
+				teamHomeBonusPoints = bonusPoints[0] + Integer.valueOf(rs.getString("BonusPoints"));
+				
+			}
+			// selects AWAY team tries and scores from League table in database
+			rs = getLeagueTable.executeQuery(
+					"SELECT GamesPlayed, PointsScored, PointsConceded, Tries, BonusPoints FROM League WHERE Year = "+year+" AND TeamName = '"+teamAway+"';");
+			while (rs.next()) {
+				awayGamesPlayed = Integer.valueOf(rs.getString("GamesPlayed"))+1;
+				teamAwayScore = teamAScore + Integer.valueOf(rs.getString("PointsScored"));
+				teamAwayPointsConceded = teamHScore + Integer.valueOf(rs.getString("PointsConceded"));
+				teamAwayTries = teamATries + Integer.valueOf(rs.getString("Tries"));
+				teamAwayBonusPoints = bonusPoints[1] + Integer.valueOf(rs.getString("BonusPoints"));
+			}
+			rs.close();
+ 
+			updateLeague.addBatch("UPDATE League SET GamesPlayed = "+homeGamesPlayed+", PointsScored = "+teamHomeScore+","
+					+ " PointsConceded = "+teamHomePointsConceded+", Tries = "+teamHomeTries+", BonusPoints = "+teamHomeBonusPoints+
+					", TotalPoints = "+teamHomeBonusPoints+" WHERE Year = "+year+" AND TeamName ='"+teamHome+"';");
+			updateLeague.addBatch("UPDATE League SET GamesPlayed = "+awayGamesPlayed+", PointsScored = "+teamAwayScore+","
+					+ " PointsConceded = "+teamAwayPointsConceded+", Tries = "+teamAwayTries+", BonusPoints = "+teamAwayBonusPoints+
+					", TotalPoints = "+teamAwayBonusPoints+" WHERE Year = "+year+" AND TeamName ='"+teamAway+"';");
+			
+			updateLeague.executeBatch();
+			conn.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

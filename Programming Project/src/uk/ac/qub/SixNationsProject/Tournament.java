@@ -179,6 +179,17 @@ public class Tournament {
 
 		roundList.get(3).getFixture1().fixtureSwitcher();
 
+		try {
+			Connection conn = DbConnect.getRemoteConnection();
+		Statement createLeague = conn.createStatement();
+		for (int i=0; i<teams.size(); i++){
+			createLeague.addBatch("INSERT INTO League Values("+this.getYear()+", '"+teams.get(i).getName()+"', 0, 0, 0, 0, 0, 0);");
+		}
+		createLeague.executeBatch();
+		createLeague.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 		return roundList;
 
 	}
