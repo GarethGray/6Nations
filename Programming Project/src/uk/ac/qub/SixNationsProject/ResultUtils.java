@@ -265,7 +265,7 @@ public final class ResultUtils {
 				teamHomePointsConceded = teamAScore + Integer.valueOf(rs.getString("PointsConceded"));
 				teamHomeTries = teamHTries + Integer.valueOf(rs.getString("Tries"));
 				teamHomeBonusPoints = bonusPoints[0] + Integer.valueOf(rs.getString("BonusPoints"));
-				teamHomeTotalPoints = bonusPoints[1] + Integer.valueOf(rs.getString("TotalPoints"));
+				teamHomeTotalPoints = bonusPoints[1] + Integer.valueOf(rs.getString("TotalPoints")) + teamHomeBonusPoints;
 				
 			}
 			
@@ -283,7 +283,7 @@ public final class ResultUtils {
 				teamAwayPointsConceded = teamHScore + Integer.valueOf(rs.getString("PointsConceded"));
 				teamAwayTries = teamATries + Integer.valueOf(rs.getString("Tries"));
 				teamAwayBonusPoints = bonusPoints[2] + Integer.valueOf(rs.getString("BonusPoints"));
-				teamAwayTotalPoints = bonusPoints[3] + Integer.valueOf(rs.getString("TotalPoints"));
+				teamAwayTotalPoints = bonusPoints[3] + Integer.valueOf(rs.getString("TotalPoints")) + teamAwayBonusPoints;
 			}
 			rs.close();
 			
