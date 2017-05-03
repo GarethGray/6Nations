@@ -112,6 +112,8 @@ public final class ResultUtils {
 			// chosenFixture.updateTeamsValues();
 			// chosenFixture.printFixtureResult();
 
+			if(validateScore(teamHTries, teamHScore) && validateScore(teamATries, teamAScore)) {
+			
 			Statement insertResult = conn.createStatement();
 
 			// creates statement to insert HOME team results into FixtureResult
@@ -132,7 +134,9 @@ public final class ResultUtils {
 			// based on the results of the selected fixture, this method then updates the League table
 			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 
-			conn.close();
+			conn.close();} else {
+				System.out.println("The score you have entered cannot be valid. Please check it and try entering it again.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -336,8 +340,7 @@ public final class ResultUtils {
 				validScore = false;
 			}
 		}
-		
-
+	
 			return validScore;
 	}
 }
