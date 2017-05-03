@@ -13,6 +13,7 @@ import java.util.Scanner;
  * @author Aine Kane
  * @author Laura McCormick
  * @author Matt McQuillan
+ * @author Gareth Gray
  *
  */
 
@@ -112,6 +113,10 @@ public final class ResultUtils {
 			// chosenFixture.updateTeamsValues();
 			// chosenFixture.printFixtureResult();
 
+			
+			// checks the values the user has entered
+			if(validateScore(teamHTries, teamHScore) && validateScore(teamATries, teamAScore)) {
+			
 			Statement insertResult = conn.createStatement();
 
 			// creates statement to insert HOME team results into FixtureResult
@@ -132,7 +137,9 @@ public final class ResultUtils {
 			// based on the results of the selected fixture, this method then updates the League table
 			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 
-			conn.close();
+			conn.close();} else {
+				System.out.println("The score you have entered cannot be valid. Please check it and try again.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -316,5 +323,27 @@ public final class ResultUtils {
 		}
 		
 		
+	}
+	
+	/**
+	 * Takes the user inputted values and checks to see if this can constitute a valid rugby score
+	 * @param tries
+	 * @param score
+	 * @return boolean validScore
+	 */
+	public static boolean validateScore(int tries, int score) {
+		boolean validScore = true;
+
+		if (score == 2 || score == 3 || score == 4 || (5*tries)>score){
+			validScore = false;
+		}
+		
+		if (tries!=0){
+			if(score%tries == 1){
+				validScore = false;
+			}
+		}
+	
+			return validScore;
 	}
 }
