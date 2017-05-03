@@ -54,7 +54,7 @@ public class DbConnect {
 
 			// comparing both teams of fixture?
 
-			String createLeague = "CREATE TABLE League (Year numeric(4,0), TeamName char(50), GamesPlayed numeric(1,0), PointsScored numeric (4,0), "
+			String createLeague = "CREATE TABLE League (Year numeric(4,0), TeamName char(50), GamesPlayed numeric(1,0), Won numeric(2,0), Drawn numeric(2,0), Lost numeric(2,0), PointsScored numeric (4,0), "
 
 					+ " PointsConceded numeric (4,0), Tries numeric(3,0), BonusPoints numeric(4,0), TotalPoints numeric(4,0),"
 

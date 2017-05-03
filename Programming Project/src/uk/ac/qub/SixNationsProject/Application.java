@@ -3,6 +3,10 @@
  */
 package uk.ac.qub.SixNationsProject;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,46 +22,6 @@ public class Application {
 	public static void main(String[] args) {
 
 		menu();
-
-		// creating all teams to play in the tournament
-		Team scotland = new Team(TeamName.SCOTLAND);
-		Team france = new Team(TeamName.FRANCE);
-		Team england = new Team(TeamName.ENGLAND);
-		Team ireland = new Team(TeamName.IRELAND);
-		Team wales = new Team(TeamName.WALES);
-		Team italy = new Team(TeamName.ITALY);
-
-		// adding all teams to an ArrayList that can be passed into
-		// the FixtureGenerator
-		ArrayList<Team> teams = new ArrayList<>();
-		teams.add(scotland);
-		teams.add(france);
-		teams.add(england);
-		teams.add(ireland);
-		teams.add(wales);
-		teams.add(italy);
-
-		// Create a new tournament object
-		Tournament tournament = new Tournament(teams, 2017);
-
-		// Create System.in scanner, once closed another can't be opened (also
-		// closes System.in)
-		Scanner scanner = new Scanner(System.in);
-
-		// Examples:
-		// Enter score by user input
-		// ResultUtils.promptToInsertResults(tournament, scanner);
-
-		// Print the scores of a single round
-		// ResultUtils.promptToPrintRoundResults(tournament, scanner);
-
-		// Print the results of a whole tournament
-		// tournament.printTournamentResults();
-
-		// Close the scanner
-		scanner.close();
-
-		// UploadResultsTestFile.uploadResults(tournament, "TeamUpdate");
 	}
 
 	@SuppressWarnings("unused")
@@ -84,7 +48,10 @@ public class Application {
 		// if the user selects Create New Tournament, the method Application.Tournament is called
 		// and they are prompted to insert the year for a new tournament
 		case 1:
-			tournament = createTournament();
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Which year is the tournament in?");
+			int year = scan.nextInt();
+			tournament = new Tournament(year);
 			tournament.printTournamentResults();
 			break;
 			
@@ -168,5 +135,6 @@ public class Application {
 		ct.close();
 		return new Tournament(year);
 	}
+
 
 }

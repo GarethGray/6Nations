@@ -32,22 +32,27 @@ public class Result {
 //		calculatePoints();
 //	}
 
-	public static int[] calculateBonusPoints(int year, String teamHome, int teamHomeScore, int teamHomeTries, String teamAway, int teamAwayScore, int teamAwayTries) {
-		int[] matchPoints = new int[2];
+
+	public static int[] calculateBonusPoints(String teamHome, int teamHomeScore, int teamHomeTries, String teamAway, int teamAwayScore, int teamAwayTries) {
+		int[] matchPoints = new int[4];
 		
 		//team1Points = 0;
 		int team1BonusPoints = 0;
+		int team1MatchPoints = 0;
 		//team2Points = 0;
 		int team2BonusPoints = 0;
+		int team2MatchPoints = 0;
+		
+		
 
 		// Draw, award both teams 2 points
 		if (teamHomeScore == teamAwayScore) {
-			team1BonusPoints = team1BonusPoints + 2;
-			team2BonusPoints = team2BonusPoints + 2;
+			team1MatchPoints+=2;
+			team2MatchPoints+=2;
 		}
 		// Team 1 wins, award 4 points
 		else if (teamHomeScore > teamAwayScore) {
-			team1BonusPoints = team1BonusPoints + 4;
+			team1MatchPoints = team1MatchPoints + 4;
 			// if team 2 scored within 7, award 1 bonus point
 			if (teamHomeScore - teamAwayScore <= 7) {
 				//team2Points++;
@@ -56,7 +61,7 @@ public class Result {
 		}
 		// Team 2 wins, award 4 points
 		else if (teamHomeScore < teamAwayScore) {
-			team2BonusPoints = team2BonusPoints + 4;
+			team2MatchPoints+=4;
 			// if team 1 scored within 7, award 1 bonus point
 			if (teamAwayScore - teamHomeScore <= 7) {
 				//team1Points++;
@@ -74,7 +79,9 @@ public class Result {
 		}
 			
 		matchPoints[0] = team1BonusPoints;
-		matchPoints[1] = team2BonusPoints;
+		matchPoints[1] = team1MatchPoints;
+		matchPoints[2] = team2BonusPoints;
+		matchPoints[3] = team2MatchPoints;
 		
 		return matchPoints;
 		
