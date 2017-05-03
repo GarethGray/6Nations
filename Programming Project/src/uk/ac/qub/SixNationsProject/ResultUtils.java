@@ -10,6 +10,9 @@ import java.util.Scanner;
 /**
  * 
  * @author Grainne Jennings
+ * @author Aine Kane
+ * @author Laura McCormick
+ * @author Matt McQuillan
  *
  */
 
@@ -31,7 +34,13 @@ public final class ResultUtils {
 		return fixture.getResult();
 	}
 
-	// TODO connect to database and do some JDBC - Laura
+	/**
+	 * This method asks the user to input the year, round and fixture to update scores for.
+	 * The method then asks for the tries and score for each round in the fixture.
+	 * It then updates the database table FixtureResult with these scores.
+	 * Finally, it calls ResultUtils.updateLeague() to update the league table values
+	 * @param scanner
+	 */
 	public static void promptToInsertResults(Scanner scanner) {
 		try {
 			Connection conn = DbConnect.getRemoteConnection();
@@ -43,7 +52,6 @@ public final class ResultUtils {
 			int teamHScore;
 			int teamATries;
 			int teamAScore;
-			String fixtureID;
 			String teamHome = null;
 			String teamAway = null;
 
@@ -64,9 +72,8 @@ public final class ResultUtils {
 				System.out.println("Select fixture:");
 				fixtureNumber = scanner.nextInt();
 			}
-			fixtureID = Integer.toString(tournamentYear) + Integer.toString(roundNumber) + Integer.toString(fixtureNumber);
 			
-			// uses user-inputted values to select HOME team from database
+			// uses user-inputed values to select HOME team from database
 			Statement getTeams = conn.createStatement();
 			ResultSet rs = getTeams.executeQuery("SELECT TeamNameHome FROM Fixture WHERE Year = " + tournamentYear
 					+ " AND RoundNo = " + roundNumber + " AND FixtureNo = " + fixtureNumber + ";");
@@ -75,7 +82,7 @@ public final class ResultUtils {
 			}
 			System.out.println("\nHome team: " + teamHome);
 
-			// uses user-inputted values to select AWAY team from database
+			// uses user-inputed values to select AWAY team from database
 			rs = getTeams.executeQuery("SELECT TeamNameAway FROM Fixture WHERE Year = " + tournamentYear
 					+ " AND RoundNo = " + roundNumber + " AND FixtureNo = " + fixtureNumber + ";");
 			while (rs.next()) {
@@ -105,22 +112,24 @@ public final class ResultUtils {
 			// chosenFixture.updateTeamsValues();
 			// chosenFixture.printFixtureResult();
 
-			// the code inside the try block inserts results for each team in
-			// the fixture specified
-
 			Statement insertResult = conn.createStatement();
 
+			// creates statement to insert HOME team results into FixtureResult
 			String newResultTeamHome = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" + tournamentYear
 					+ "" + roundNumber + "" + fixtureNumber + "', '" + teamHome + "'" + ", " + teamHTries + ", "
 					+ teamHScore + ");";
+			// creates statement to insert AWAY team results into FixtureResult
 			String newResultTeamAway = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" + tournamentYear
 					+ "" + roundNumber + "" + fixtureNumber + "', '" + teamAway + "'" + ", " + teamATries + ", "
 					+ teamAScore + ");";
 
+			// adds statements to insertResult batch and executes them
 			insertResult.addBatch(newResultTeamHome);
 			insertResult.addBatch(newResultTeamAway);
 			insertResult.executeBatch();
 			insertResult.close();
+			
+			// based on the results of the selected fixture, this method then updates the League table
 			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 
 			conn.close();
@@ -129,6 +138,11 @@ public final class ResultUtils {
 		}
 	}
 
+	/**
+	 * This method asks users for the year, round and fixture that they wish to view results for
+	 * It then retrieves this values from the database and prints them to screen
+	 * @param scanner
+	 */
 	public static void getResultForFixtureDB(Scanner scanner) {
 
 		try {
@@ -166,7 +180,7 @@ public final class ResultUtils {
 
 			fixtureID = tournamentYear + roundNumber + fixtureNumber;
 
-			// uses user-inputted values to select HOME team from database
+			// uses user-inputed values to select HOME team from database
 			Statement getResult = conn.createStatement();
 			ResultSet rs = getResult.executeQuery(
 					"SELECT TeamName, Tries, Score FROM FixtureResult WHERE FixtureID = '" + fixtureID + "';");
@@ -195,6 +209,17 @@ public final class ResultUtils {
 		round.printRoundResults();
 	}
 	
+	/**
+	 * This method reads the current League table values from the database, then updates them
+	 * based on the fixture results.
+	 * @param year
+	 * @param teamHome
+	 * @param teamAway
+	 * @param teamHTries
+	 * @param teamHScore
+	 * @param teamATries
+	 * @param teamAScore
+	 */
 	public static void updateLeague(int year, String teamHome, String teamAway, int teamHTries, int teamHScore, int teamATries, int teamAScore){
 		int homeGamesPlayed=0;
 		int teamHomeScore=0;
@@ -220,12 +245,17 @@ public final class ResultUtils {
 			Connection conn = DbConnect.getRemoteConnection();
 			Statement updateLeague = conn.createStatement();
 			
+			// calculateBonusPoints returns an int array containing the values for bonus points and match points for both teams
+			// index 0 = teamHomeBonusPoints, 1 = teamHomeMatchPoints
+			// 2 = teamAwayBonusPoints, 3 = teamAwayBonusPoints
 			int[] bonusPoints = Result.calculateBonusPoints(teamHome, teamHScore, teamHTries, teamAway, teamAScore, teamATries);
-			// selects HOME team tries and scores from League table in database
+			
+			// selects HOME team values from League table in database
 			Statement getLeagueTable = conn.createStatement();
 			ResultSet rs = getLeagueTable.executeQuery(
 					"SELECT GamesPlayed, Won, Drawn, Lost, PointsScored, PointsConceded, Tries, BonusPoints, TotalPoints FROM League WHERE Year = " + year +
 					" AND TeamName = '"+teamHome+"';");
+			// updates HOME values based on new match results
 			while (rs.next()) {
 				homeGamesPlayed = Integer.valueOf(rs.getString("GamesPlayed"))+1;
 				teamHomeWon = Integer.valueOf(rs.getString("Won"));
@@ -238,10 +268,12 @@ public final class ResultUtils {
 				teamHomeTotalPoints = bonusPoints[1] + Integer.valueOf(rs.getString("TotalPoints"));
 				
 			}
-			// selects AWAY team tries and scores from League table in database
+			
+			// selects AWAY team values from League table in database
 			rs = getLeagueTable.executeQuery(
 					"SELECT GamesPlayed, Won, Drawn, Lost, PointsScored, PointsConceded, Tries, BonusPoints, TotalPoints FROM League WHERE Year = "+year+
 					" AND TeamName = '"+teamAway+"';");
+			// updates AWAY values based on new match results
 			while (rs.next()) {
 				awayGamesPlayed = Integer.valueOf(rs.getString("GamesPlayed"))+1;
 				teamAwayWon = Integer.valueOf(rs.getString("Won"));
@@ -267,6 +299,7 @@ public final class ResultUtils {
 				teamHomeLost++;
 			}
 			
+			// the following SQL statements update the new values into the Home and Away rows in the League table
 			updateLeague.addBatch("UPDATE League SET GamesPlayed = "+homeGamesPlayed+", Won = "+teamHomeWon+", Drawn = "+teamHomeDrawn+", Lost="+teamHomeLost
 					+ ", PointsScored = "+teamHomeScore+ ", PointsConceded = "+teamHomePointsConceded+", Tries = "+teamHomeTries+", BonusPoints = "+teamHomeBonusPoints+
 					", TotalPoints = "+teamHomeTotalPoints+" WHERE Year = "+year+" AND TeamName ='"+teamHome+"';");
@@ -279,7 +312,6 @@ public final class ResultUtils {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
