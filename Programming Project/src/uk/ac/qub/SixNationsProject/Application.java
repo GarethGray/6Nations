@@ -27,7 +27,9 @@ public class Application {
 	@SuppressWarnings("unused")
 	public static void menu() {
 		Scanner menuChoice = new Scanner(System.in);
-		int choice = 0;
+		int choice=0;
+		while (choice!=6){
+		choice = 0;
 
 		System.out.println("Welcome to the Six Nations! Please select an option from the menu:\n");
 
@@ -35,7 +37,7 @@ public class Application {
 				+ "4. View league table\n" + "5. Search database\n" + "6. Exit\n");
 
 		// user inputs values until a valid value is found
-		while (choice < 1 || choice > 5) {
+		while (choice < 1 || choice > 6) {
 			choice = menuChoice.nextInt();
 		}
 
@@ -49,8 +51,9 @@ public class Application {
 		// Application.Tournament is called
 		// and they are prompted to insert the year for a new tournament
 		case 1:
-			Tournament tournament = createTournament();
-
+			createTournament(menuChoice);
+			break;
+			
 		// if the user selects Insert Match Results, they will be asked how they would prefer to input the results
 		case 2:
 			selectResultInputMethod(menuChoice);
@@ -83,7 +86,7 @@ public class Application {
 			System.out.println("Unrecognised input, program ending.");
 			break;
 		}
-
+		}
 		menuChoice.close();
 	}
 
@@ -155,8 +158,7 @@ public class Application {
 	 * @author Laura McCormick
 	 * @return Tournament
 	 */
-	public static Tournament createTournament() {
-		Scanner ct = new Scanner(System.in);
+	public static void createTournament(Scanner menuChoice) {
 		int year = 0;
 		boolean bcorrect = false;
 
@@ -165,11 +167,11 @@ public class Application {
 
 			// method prompts user for the year the tournament is in
 			System.out.println("Which year is the tournament in?");
-			year = ct.nextInt();
+			year = menuChoice.nextInt();
 
 			while (!ccorrect.equalsIgnoreCase("Y") && !ccorrect.equalsIgnoreCase("N")) {
 				System.out.println("This tournament is for the year " + year + ". Is this correct? Y/N");
-				ccorrect = ct.next();
+				ccorrect = menuChoice.next();
 			}
 
 			if (ccorrect.equalsIgnoreCase("Y")) {
@@ -179,8 +181,7 @@ public class Application {
 		;
 
 		System.out.println("Six Nations " + year + " created. Fixtures have been generated.");
-		ct.close();
-		return new Tournament(year);
+		Tournament newTourn = new Tournament(year);
 	}
 
 }
