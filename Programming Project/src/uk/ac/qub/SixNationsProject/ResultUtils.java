@@ -54,6 +54,7 @@ public final class ResultUtils {
 			int teamAScore;
 			String teamHome = null;
 			String teamAway = null;
+			String fixtureID;
 
 			// asks user to select tournament
 			tournamentYear = promptForTournamentYear(scanner, tournamentYear);
@@ -90,31 +91,16 @@ public final class ResultUtils {
 			Team home = new Team(TeamName.valueOf(teamHome));
 			Team away = new Team(TeamName.valueOf(teamAway));
 			home.setTries(teamHTries);
-			home.setScoreFor(teamHScore);
+			home.setScore(teamHScore);
 			away.setTries(teamATries);
-			away.setScoreFor(teamAScore);
-			
-			// creates statement to insert HOME team results into FixtureResult
-			String newResultTeamHome = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" + tournamentYear
-					+ "" + roundNumber + "" + fixtureNumber + "', '" + teamHome + "'" + ", " + teamHTries + ", "
-					+ teamHScore + ");";
-			
-			// creates statement to insert AWAY team results into FixtureResult
-			String newResultTeamAway = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" + tournamentYear
-					+ "" + roundNumber + "" + fixtureNumber + "', '" + teamAway + "'" + ", " + teamATries + ", "
-					+ teamAScore + ");";
-
-			// adds statements to insertResult batch and executes them
-			Statement insertResult = conn.createStatement();
-			insertResult.addBatch(newResultTeamHome);
-			insertResult.addBatch(newResultTeamAway);
-			insertResult.executeBatch();
-			insertResult.close();
+			away.setScore(teamAScore);
+			fixtureID = tournamentYear+""+roundNumber+""+fixtureNumber;
+					
+			insertResultsToDatabase(tournamentYear, fixtureID, home, away);
 			
 			// based on the results of the selected fixture, this method then updates the League table
 			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
-
-			conn.close();} else {
+			} else {
 				System.out.println("The score you have entered cannot be valid. Please check it and try again.");
 			}
 		} catch (SQLException e) {
@@ -123,6 +109,34 @@ public final class ResultUtils {
 	}
 	
 	
+	
+	
+	/**
+	 * 
+	 */
+	public static void insertResultsToDatabase(int tournamentYear, String fixtureID, Team home, Team away){
+		try (Connection conn = DbConnect.getRemoteConnection();){
+			
+		
+		String newResultTeamHome = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" +fixtureID+ "', '"
+				+ String.valueOf(home.getName()) + "'" + ", " + home.getTries() + ", "
+				+ home.getScore() + ");";
+		
+		// creates statement to insert AWAY team results into FixtureResult
+		String newResultTeamAway = "INSERT INTO FixtureResult Values(" + tournamentYear + ", '" +fixtureID+ "', '"
+				+ String.valueOf(away.getName()) + "'" + ", " + away.getTries() + ", "
+				+ away.getScore() + ");";
+
+		// adds statements to insertResult batch and executes them
+		Statement insertResult = conn.createStatement();
+		insertResult.addBatch(newResultTeamHome);
+		insertResult.addBatch(newResultTeamAway);
+		insertResult.executeBatch();
+		insertResult.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
