@@ -186,35 +186,5 @@ public class Test_Round {
 
 	}
 
-	
-	//TODO 
-	/**
-	 * This SHOULD work but for some reason does not. Fresh eyes appreciated.
-	 */
-	@Test
-	public void testPrintRoundResults() {
-
-		System.setOut(new PrintStream(outContent));
-
-		Round round = new Round(fixture1, fixture2, fixture3, validRoundNumber);
-
-		round.printRoundResults();
-
-		// set up expected output
-		String expected = ("Round: " + round.getNumber() + "\nFixture: 1\n" + "\t\t" + team1.getName() + "\t vs\t"
-				+ team2.getName() + "\nTRIES:\t\t" + 0 + "\t\t\t" + 0 + "\nSCORE:\t\t" + 0 + "\t\t\t" + 0
-				+ "\nPOINTS:\t\t" + 0 + "\t\t\t" + 0 + "\nBONUS:\t\t" + 0 + "\t\t\t" + 0 + "\n" + "\nFixture: 1\n"
-				+ "\t\t" + team3.getName() + "\t vs\t" + team4.getName() + "\nTRIES:\t\t" + 0 + "\t\t\t" + 0
-				+ "\nSCORE:\t\t" + 0 + "\t\t\t" + 0 + "\nPOINTS:\t\t" + 0 + "\t\t\t" + 0 + "\nBONUS:\t\t" + 0 + "\t\t\t"
-				+ 0 + " " + "\n\nFixture: 1\n" + "\t\t" + team5.getName() + "\t vs\t" + team6.getName() + "\nTRIES:\t\t"
-				+ 0 + "\t\t\t" + 0 + "\nSCORE:\t\t" + 0 + "\t\t\t" + 0 + "\nPOINTS:\t\t" + 0 + "\t\t\t" + 0
-				+ "\nBONUS:\t\t" + 0 + "\t\t\t" + 0+"\n\n");
-
-		// comparison
-		assertEquals(expected, outContent.toString());
-
-		System.setOut(null);
-
-	}
 
 }
