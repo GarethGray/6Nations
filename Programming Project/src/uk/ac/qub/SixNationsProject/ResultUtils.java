@@ -168,8 +168,11 @@ public final class ResultUtils {
 		away.setTries(Integer.valueOf(list.get(7)));
 		away.setScore(Integer.valueOf(list.get(8)));
 		
-		// inserts values into database
+		// inserts values into FixtureResult database
 		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
+		
+		// updates values in League table in database
+		updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
 	}
 	
 	

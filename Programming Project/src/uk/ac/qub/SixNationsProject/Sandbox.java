@@ -30,7 +30,7 @@ public class Sandbox {
 			//ResultUtils.promptToInsertResults(scanner);
 			
 			System.out.println("----- \n ResultUtils.fileToInsertResults:\n");
-			ResultUtils.fileToInsertResults("matchResults201712");
+			ResultUtils.fileToInsertResults("matchResults201712.txt");
 			
 			System.out.println("----- \n ResultUtils.getResultsForFixtureDB:\n");
 			ResultUtils.getResultForFixtureDB(scanner);
