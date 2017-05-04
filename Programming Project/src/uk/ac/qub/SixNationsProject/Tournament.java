@@ -66,18 +66,18 @@ public class Tournament {
 
 		this.setYear(year);
 
-		// this populates the database with the teams
-		try {
-			Connection conn = DbConnect.getRemoteConnection();
-			Statement insertTeam = conn.createStatement();
-			for (int i = 0; i < teams.size(); i++) {
-				insertTeam.addBatch("INSERT INTO Team Values('" + teams.get(i).getName() + "');");
-			}
-			insertTeam.executeBatch();
-			insertTeam.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		// this populates the database with the teams
+//		try {
+//			Connection conn = DbConnect.getRemoteConnection();
+//			Statement insertTeam = conn.createStatement();
+//			for (int i = 0; i < teams.size(); i++) {
+//				insertTeam.addBatch("INSERT INTO Team Values('" + teams.get(i).getName() + "');");
+//			}
+//			insertTeam.executeBatch();
+//			insertTeam.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		
 		ArrayList<Round> rounds = this.generateRounds(year, teams);
 

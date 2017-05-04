@@ -18,7 +18,9 @@ public class Sandbox {
 		try {
 			DbConnect.createDB();
 			Connection conn = DbConnect.getRemoteConnection();
-			test = new Tournament(2017);
+			System.out.println("Enter Year");
+			int year = scanner.nextInt();
+			test = new Tournament(year);
 			Statement checkWorks = conn.createStatement();
 			ResultSet rs = checkWorks.executeQuery("SELECT * FROM Team;");
 			while (rs.next()) {
@@ -45,12 +47,17 @@ public class Sandbox {
 		try {
 			conn = DbConnect.getRemoteConnection();
 			Statement getLeagueTable = conn.createStatement();
-			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League");
-			System.out.println("YEAR\t TEAM NAME\t GAMES PLAYED\t POINTS SCORED\t POINTS CONCEDED\t TRIES\t BONUS\t TOTAL POINTS");
+			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League GROUP BY Year ORDER BY TotalPoints DESC");
+			System.out.println("YEAR\t TEAM NAME\tWON \tDRAWN \tLOST \tGAMES PLAYED\t POINTS SCORED\t POINTS CONCEDED\tTRIES\t BONUS\t TOTAL POINTS");
+			System.out.println("-----------------------------------------------------------------------------------------------------------------------------------");
 			while(rs.next()){
-				System.out.println(rs.getString("Year")+"\t"+rs.getString("TeamName")+"\t"+
-			rs.getString("GamesPlayed")+"\t"+rs.getString("PointsScored")+"\t"+rs.getString("PointsConceded")+"\t"+
-			rs.getString("Tries")+"\t"+rs.getString("BonusPoints")+"\t"+rs.getString("TotalPoints")+"\t");
+				System.out.format("%1s%13s%9s%9s%8s%13s%15s%18s%18s%10s%10s\n",rs.getString("Year"),rs.getString("TeamName"),
+					rs.getString("Won"),rs.getString("Drawn"),rs.getString("Lost"),
+			rs.getString("GamesPlayed"),rs.getString("PointsScored"),rs.getString("PointsConceded"),
+			rs.getString("Tries"),rs.getString("BonusPoints"),rs.getString("TotalPoints"));
+			
+
+
 			}
 			
 		} catch (SQLException e) {

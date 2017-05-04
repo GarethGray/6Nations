@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DbConnect {
 
@@ -134,6 +135,54 @@ public class DbConnect {
 
 		return con;
 
+	}
+	
+	public static void addTeams(){
+		// creating all teams to play in the tournament
+
+				Team scotland = new Team(TeamName.SCOTLAND);
+
+				Team france = new Team(TeamName.FRANCE);
+
+				Team england = new Team(TeamName.ENGLAND);
+
+				Team ireland = new Team(TeamName.IRELAND);
+
+				Team wales = new Team(TeamName.WALES);
+
+				Team italy = new Team(TeamName.ITALY);
+
+				// adding all teams to an ArrayList that can be passed into
+
+				// the FixtureGenerator
+
+				ArrayList<Team> teams = new ArrayList<>();
+
+				teams.add(scotland);
+
+				teams.add(france);
+
+				teams.add(england);
+
+				teams.add(ireland);
+
+				teams.add(wales);
+
+				teams.add(italy);
+
+				// this populates the database with the teams
+				try {
+					Connection conn = DbConnect.getRemoteConnection();
+					Statement insertTeam = conn.createStatement();
+					for (int i = 0; i < teams.size(); i++) {
+						insertTeam.addBatch("INSERT INTO Team Values('" + teams.get(i).getName() + "');");
+					}
+					insertTeam.executeBatch();
+					insertTeam.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
 	}
 
 }
