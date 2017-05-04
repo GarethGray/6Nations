@@ -163,35 +163,46 @@ public class Application {
 	 * @return Tournament
 	 */
 	public static void createTournament(Scanner menuChoice) {
-		int year = 0;
-		boolean bcorrect = false;
+		try (Connection conn = DbConnect.getRemoteConnection()){
+			int year = 0;
+			boolean bcorrect = false;
 
-		while (bcorrect == false) {
-			String ccorrect = "A";
+			while (bcorrect == false) {
+				String ccorrect = "A";
 
-			// method prompts user for the year the tournament is in
-			while (year<1 || year>9999){
-				System.out.println("Which year is the tournament in?");
-				if(menuChoice.hasNextInt()){
-					year = menuChoice.nextInt();
-				} else {
-					System.out.println("Please enter a valid 4-digit integer.");
-					menuChoice.next();
+				// method prompts user for the year the tournament is in
+				while (year<1 || year>9999){
+					System.out.println("Which year is the tournament in?");
+					if(menuChoice.hasNextInt()){
+						year = menuChoice.nextInt();
+					} else {
+						System.out.println("Please enter a valid 4-digit integer.");
+						menuChoice.next();
+					}
 				}
+			
+				while (!ccorrect.equalsIgnoreCase("Y") && !ccorrect.equalsIgnoreCase("N")) {
+					System.out.println("This tournament is for the year " + year + ". Is this correct? Y/N");
+					ccorrect = menuChoice.next();
+				}
+
+				if (ccorrect.equalsIgnoreCase("Y")) {
+				bcorrect = true;
+				} 
+			};
+
+			Statement checkYearExists = conn.createStatement();
+			ResultSet checkYear = checkYearExists.executeQuery("Select Year from Fixture where year = " + year + ";");
+			if (!checkYear.next()){
+				System.out.println("Six Nations " + year + " created. Fixtures have been generated.");
+				Tournament newTourn = new Tournament(year);
+			} else {
+				System.out.println("This tournament already exists in the database. Returning to main menu.");
 			}
 			
-			while (!ccorrect.equalsIgnoreCase("Y") && !ccorrect.equalsIgnoreCase("N")) {
-				System.out.println("This tournament is for the year " + year + ". Is this correct? Y/N");
-				ccorrect = menuChoice.next();
-			}
-
-			if (ccorrect.equalsIgnoreCase("Y")) {
-				bcorrect = true;
-			}
-		};
-
-		System.out.println("Six Nations " + year + " created. Fixtures have been generated.");
-		Tournament newTourn = new Tournament(year);
+		} catch (SQLException e) {
+		e.printStackTrace();
+		}
 	}
-
 }
+
