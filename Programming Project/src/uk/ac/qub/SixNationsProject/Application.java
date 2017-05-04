@@ -37,8 +37,8 @@ public class Application {
 
 		// user inputs values until a valid value is found
 		while (choice < 1 || choice > 6) {
+			System.out.println("Please input an integer between 1 and 6.");
 			if (menuChoice.hasNextInt()==false){
-				System.out.println("Please input an integer between 1 and 6.");
 				menuChoice.next();
 			} else {
 				choice = menuChoice.nextInt();
@@ -60,7 +60,7 @@ public class Application {
 			
 		// if the user selects Insert Match Results, they will be asked how they would prefer to input the results
 		case 2:
-			selectResultInputMethod();
+			selectResultInputMethod(menuChoice);
 			break;
 
 		// if the user selects View Match Results, they are asked to select the match to view
@@ -75,9 +75,9 @@ public class Application {
 			selectReturnLeagueMethod(menuChoice);
 			break;
 
-		// if the user selects Search Database TODO a method is called
+		// if the user selects Search Database, SearchDB.searchDatabase is called
 		case 5:
-			// TODO Kathy's search stuff
+			SearchDB.searchDatabase();
 			break;
 
 		// if the user selects Exit, the system displays a confirmation message
@@ -116,8 +116,7 @@ public class Application {
 		} else if (choice == 2) {
 			ResultUtils.returnLeagueTable();
 		} else {
-			System.out.println("That was not an option. Returning to main menu...");
-			// TODO return to main menu?
+			System.out.println("Invalid option. Returning to main menu...");
 		}
 	}
 
@@ -131,11 +130,10 @@ public class Application {
 	 * If they want to update them from a file, it calls ResultUtils.fileToInsertResults.
 	 * @param menuChoice
 	 */
-	public static void selectResultInputMethod() {
-		Scanner inputMethodChoice = new Scanner(System.in);
+	public static void selectResultInputMethod(Scanner menuChoice) {
 		int choice;
 		System.out.println("Would you like to input your scores via...\n" + "1. manual input\n" + "2. file input\n");
-		choice = inputMethodChoice.nextInt();
+		choice = menuChoice.nextInt();
 		// if the user selects manual input, the method calls
 		// ResultUtils.promptToInsertResults()
 		if (choice == 1) {
@@ -145,13 +143,12 @@ public class Application {
 			// this is passed into ResultUtils.fileToInsertResults()
 		} else if (choice == 2) {
 			System.out.println("What is the name of your file? (Please include file extension, eg .txt)");
-			String fileName=inputMethodChoice.next();
+			String fileName=menuChoice.next();
 			ResultUtils.fileToInsertResults(fileName);
 		} else {
 			System.out.println("That was not an option. Returning to main menu...");
 			// TODO return to main menu?
 		}
-		inputMethodChoice.close();
 	}
 
 	
