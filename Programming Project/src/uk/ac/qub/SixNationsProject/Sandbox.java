@@ -26,8 +26,11 @@ public class Sandbox {
 				System.out.println("Team name: " + rs.getString("TeamName"));
 			}
 
-			System.out.println("----- \n ResultUtils.promptToInsertResults:\n");
-			ResultUtils.promptToInsertResults(scanner);
+			//System.out.println("----- \n ResultUtils.promptToInsertResults:\n");
+			//ResultUtils.promptToInsertResults(scanner);
+			
+			System.out.println("----- \n ResultUtils.fileToInsertResults:\n");
+			ResultUtils.fileToInsertResults("matchResults201712");
 			
 			System.out.println("----- \n ResultUtils.getResultsForFixtureDB:\n");
 			ResultUtils.getResultForFixtureDB(scanner);

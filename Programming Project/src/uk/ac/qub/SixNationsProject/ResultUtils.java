@@ -1,5 +1,10 @@
 package uk.ac.qub.SixNationsProject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +40,10 @@ public final class ResultUtils {
 		return fixture.getResult();
 	}
 
+	
+	
+	
+	
 	/**
 	 * This method asks the user to input the year, round and fixture to update scores for.
 	 * The method then asks for the tries and score for each round in the fixture.
@@ -111,8 +120,69 @@ public final class ResultUtils {
 	
 	
 	
+	
 	/**
-	 * 
+	 * This method reads in the name of a file, then reads from that file
+	 * and stores each line as a String in an array. Then, it inputs the values from
+	 * the file into the database to insert to FixtureResults
+	 * @param fileName
+	 */
+	public static void fileToInsertResults(String fileName){
+		// Initializing variables
+		ArrayList<String> list = new ArrayList<String>();
+		int tournamentYear=0;
+		String fixtureID;
+		Team home = new Team();
+		Team away = new Team();
+		
+		//reading in a file and storing each line as a String in a String array
+		try {
+			File file = new File(fileName);
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+
+			String line = br.readLine();
+			while (line != null) {
+				list.add(line);
+				line = br.readLine();
+			}
+			br.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Input/output exception");
+			e.printStackTrace();
+		}
+		
+		// setting each variable as the correct value in the file
+		tournamentYear = Integer.valueOf(list.get(0));
+		fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
+		
+		home.setName(TeamName.valueOf(list.get(3)));
+		home.setTries(Integer.valueOf(list.get(4)));
+		home.setScore(Integer.valueOf(list.get(5)));
+		
+		away.setName(TeamName.valueOf(list.get(6)));
+		away.setTries(Integer.valueOf(list.get(7)));
+		away.setScore(Integer.valueOf(list.get(8)));
+		
+		// inserts values into database
+		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
+	}
+	
+	
+	
+	
+	
+	/**
+	 * A method that takes in the tournament year, fixtureID and home and away teams, and inputs the
+	 * results into the FixtureResults table
+	 * @param tournamentYear
+	 * @param fixtureID
+	 * @param home
+	 * @param away
 	 */
 	public static void insertResultsToDatabase(int tournamentYear, String fixtureID, Team home, Team away){
 		try (Connection conn = DbConnect.getRemoteConnection();){
@@ -137,6 +207,8 @@ public final class ResultUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	
 	

@@ -71,7 +71,7 @@ public class UploadResultsTestFile {
 		int[] team2ScoreArray = { team2Tries, team2Score };
 
 		Result result = chosenFixture.getResult();
-		result.setScores(team1ScoreArray, team2ScoreArray);
+		//result.setScores(team1ScoreArray, team2ScoreArray);
 
 		// Update the teams with their points and scores
 		chosenFixture.updateTeamsValues();
