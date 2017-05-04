@@ -66,10 +66,8 @@ import java.util.Scanner;
 			String fixtureID;
 
 			// asks user to select tournament
-			while (tournamentYear==0){
-				tournamentYear = promptForTournamentYear(scanner, tournamentYear);
-			}
-			
+			tournamentYear = promptForTournamentYear(scanner, tournamentYear);
+
 			// asks user to select round to input scores into
 			roundNumber = promptForRoundNumber(scanner, roundNumber, numberOfRounds);
 
@@ -138,7 +136,6 @@ import java.util.Scanner;
 		String fixtureID;
 		Team home = new Team();
 		Team away = new Team();
-		boolean validFileName = true;
 		
 		//reading in a file and storing each line as a String in a String array
 		try {
@@ -155,49 +152,40 @@ import java.util.Scanner;
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
-			validFileName=false;
+			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Input/output exception");
-			validFileName=false;
 			e.printStackTrace();
-		} 
-		
+		}
 		
 		// setting each variable as the correct value in the file
-		if (validFileName){
-			tournamentYear = Integer.valueOf(list.get(0));
-			fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
+		tournamentYear = Integer.valueOf(list.get(0));
+		fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
 		
-			home.setTries(Integer.valueOf(list.get(4)));
-			home.setScore(Integer.valueOf(list.get(5)));
+		home.setTries(Integer.valueOf(list.get(4)));
+		home.setScore(Integer.valueOf(list.get(5)));
 		
-			away.setTries(Integer.valueOf(list.get(7)));
-			away.setScore(Integer.valueOf(list.get(8)));
+		away.setTries(Integer.valueOf(list.get(7)));
+		away.setScore(Integer.valueOf(list.get(8)));
 		
-			// finds team names for the selected fixture
-			Statement getTeamNames = conn.createStatement();
-			ResultSet rs = getTeamNames.executeQuery("SELECT TeamNameHome, TeamNameAway FROM Fixture WHERE FixtureID = "+fixtureID+";");
-			while (rs.next()){
-				home.setName(TeamName.valueOf(rs.getString("TeamNameHome")));
-				away.setName(TeamName.valueOf(rs.getString("TeamNameAway")));
-			}
-			getTeamNames.close();
+		// finds team names for the selected fixture
+		Statement getTeamNames = conn.createStatement();
+		ResultSet rs = getTeamNames.executeQuery("SELECT TeamNameHome, TeamNameAway FROM Fixture WHERE FixtureID = "+fixtureID+";");
+		while (rs.next()){
+			home.setName(TeamName.valueOf(rs.getString("TeamNameHome")));
+			away.setName(TeamName.valueOf(rs.getString("TeamNameAway")));
+		}
+		getTeamNames.close();
 		
-			// inserts values into FixtureResult database
-			insertResultsToDatabase(tournamentYear, fixtureID, home, away);
+		// inserts values into FixtureResult database
+		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
 		
-			// updates values in League table in database
-			updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
-		} else {
-			System.out.println("Match results not inputted.");
+		// updates values in League table in database
+		updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 	}
-		catch (SQLException e1) {
-			e1.printStackTrace();
-	}
-}
-		
-	
 	
 	
 	
@@ -333,22 +321,11 @@ import java.util.Scanner;
 	 * @return
 	 */
 	public static int promptForTournamentYear(Scanner scanner, int tournamentYear) {
-		try (Connection conn = DbConnect.getRemoteConnection()){
-			while (tournamentYear < 1) {
-				System.out.println("Select tournament year:");
-				tournamentYear = scanner.nextInt();
-			}
-			Statement checkYearExists = conn.createStatement();
-			ResultSet checkYear = checkYearExists.executeQuery("Select Year from Fixture where year = " + tournamentYear + ";");
-			if (checkYear.next()){
-				return tournamentYear;
-			} else {
-				System.out.println("This tournament does not exist in the database. Please enter another year.");
-			}
-		} catch (SQLException e){
-			e.printStackTrace();
+		while (tournamentYear < 1) {
+			System.out.println("Select tournament year:");
+			tournamentYear = scanner.nextInt();
 		}
-		return 0;
+		return tournamentYear;
 	}
 
 	
