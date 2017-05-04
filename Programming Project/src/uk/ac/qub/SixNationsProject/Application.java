@@ -30,14 +30,19 @@ public class Application {
 		while (choice!=6){
 		choice = 0;
 
-		System.out.println("\n\nWelcome to the Six Nations! Please select an option from the menu:\n");
+		System.out.println("\nWelcome to the Six Nations! Please select an option from the menu:\n");
 
 		System.out.println("1. Create new tournament\n" + "2. Insert match results\n" + "3. View match results\n"
 				+ "4. View league table\n" + "5. Search database\n" + "6. Exit\n");
 
 		// user inputs values until a valid value is found
 		while (choice < 1 || choice > 6) {
-			choice = menuChoice.nextInt();
+			if (menuChoice.hasNextInt()==false){
+				System.out.println("Please input an integer between 1 and 6.");
+				menuChoice.next();
+			} else {
+				choice = menuChoice.nextInt();
+			}
 		}
 
 		// system returns the number they have chosen
@@ -165,9 +170,16 @@ public class Application {
 			String ccorrect = "A";
 
 			// method prompts user for the year the tournament is in
-			System.out.println("Which year is the tournament in?");
-			year = menuChoice.nextInt();
-
+			while (year<1 || year>9999){
+				System.out.println("Which year is the tournament in?");
+				if(menuChoice.hasNextInt()){
+					year = menuChoice.nextInt();
+				} else {
+					System.out.println("Please enter a valid 4-digit integer.");
+					menuChoice.next();
+				}
+			}
+			
 			while (!ccorrect.equalsIgnoreCase("Y") && !ccorrect.equalsIgnoreCase("N")) {
 				System.out.println("This tournament is for the year " + year + ". Is this correct? Y/N");
 				ccorrect = menuChoice.next();
@@ -176,8 +188,7 @@ public class Application {
 			if (ccorrect.equalsIgnoreCase("Y")) {
 				bcorrect = true;
 			}
-		}
-		;
+		};
 
 		System.out.println("Six Nations " + year + " created. Fixtures have been generated.");
 		Tournament newTourn = new Tournament(year);
