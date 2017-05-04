@@ -347,12 +347,6 @@ public final class ResultUtils {
 			String roundNumber = "0";
 			int numberOfRounds = 5;
 			String fixtureNumber = "0";
-			int teamHTries;
-			int teamHScore;
-			int teamATries;
-			int teamAScore;
-			String teamHome = null;
-			String teamAway = null;
 			String fixtureID;
 
 			// asks user to select tournament
