@@ -26,8 +26,10 @@ public class Result {
 			int teamAwayScore, int teamAwayTries) {
 		int[] matchPoints = new int[4];
 
+		// team1Points = 0;
 		int team1BonusPoints = 0;
 		int team1MatchPoints = 0;
+		// team2Points = 0;
 		int team2BonusPoints = 0;
 		int team2MatchPoints = 0;
 
@@ -41,6 +43,7 @@ public class Result {
 			team1MatchPoints = team1MatchPoints + 4;
 			// if team 2 scored within 7, award 1 bonus point
 			if (teamHomeScore - teamAwayScore <= 7) {
+				// team2Points++;
 				team2BonusPoints++;
 			}
 		}
@@ -49,14 +52,17 @@ public class Result {
 			team2MatchPoints += 4;
 			// if team 1 scored within 7, award 1 bonus point
 			if (teamAwayScore - teamHomeScore <= 7) {
+				// team1Points++;
 				team1BonusPoints++;
 			}
 		}
 		// Bonus point awarded for greater than 3 tries
 		if (teamHomeTries >= 4) {
+			// team1Points++;
 			team1BonusPoints++;
 		}
 		if (teamAwayTries >= 4) {
+			// team2Points++;
 			team2BonusPoints++;
 		}
 
