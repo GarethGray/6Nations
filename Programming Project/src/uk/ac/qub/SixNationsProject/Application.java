@@ -16,15 +16,7 @@ import java.util.Scanner;
  */
 public class Application {
 
-//	/**
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//
-//		menu();
-//	}
-
-	public static void menu() {
+	public static void main() {
 		Scanner menuChoice = new Scanner(System.in);
 		int choice=0;
 		while (choice!=6){
@@ -147,7 +139,6 @@ public class Application {
 			ResultUtils.fileToInsertResults(fileName);
 		} else {
 			System.out.println("That was not an option. Returning to main menu...");
-			// TODO return to main menu?
 		}
 	}
 
