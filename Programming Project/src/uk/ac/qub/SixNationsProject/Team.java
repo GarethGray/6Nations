@@ -303,24 +303,4 @@ public class Team {
 		this.lost++;
 	}
 
-	/**
-	 * Returns the values of the team in a hashmap, with the value name as key.
-	 * 
-	 * @return Hashmap of team values
-	 */
-	public Map<String, Integer> getValues() {
-		Map<String, Integer> teamValues = new HashMap<>();
-
-		teamValues.put("points", getPoints());
-		teamValues.put("bonusPoints", getBonusPoints());
-		teamValues.put("scoreFor", getScoreFor());
-		teamValues.put("scoreAgainst", getScoreAgainst());
-		teamValues.put("played", getPlayed());
-		teamValues.put("won", getWon());
-		teamValues.put("drawn", getDrawn());
-		teamValues.put("lost", getLost());
-		teamValues.put("tries", getTries());
-
-		return teamValues;
-	}
 }

@@ -22,13 +22,13 @@ import java.util.Scanner;
  *
  */
 
-public final class ResultUtils {
+	public final class ResultUtils {
 
-	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
-			int[] team2Score) {
-		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);
-		//result.setScores(team1Score, team2Score);
-	}
+//	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
+//			int[] team2Score) {
+//		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);
+//		//result.setScores(team1Score, team2Score);
+//	}
 
 	public static Result getResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber) {
 		ArrayList<Round> rounds = tournament.getRounds();
@@ -347,12 +347,6 @@ public final class ResultUtils {
 			String roundNumber = "0";
 			int numberOfRounds = 5;
 			String fixtureNumber = "0";
-			int teamHTries;
-			int teamHScore;
-			int teamATries;
-			int teamAScore;
-			String teamHome = null;
-			String teamAway = null;
 			String fixtureID;
 
 			// asks user to select tournament
@@ -514,7 +508,7 @@ public final class ResultUtils {
 	
 	public static void returnLeagueTableForYear(int year){
 		try (Connection conn = DbConnect.getRemoteConnection();){
-			int currentYear=0;
+		
 			
 			// selects all rows from the League table and returns them in a table, sorted by Total Points descending 
 			Statement getLeagueTable = conn.createStatement();
