@@ -15,7 +15,15 @@ public class Team {
 	private TeamName name;
 
 	// Values for the team that will be used in the League Table
-	private int points, bonusPoints, scoreFor, scoreAgainst, played, won, lost, drawn, tries = 0;
+	private int points, bonusPoints, scoreFor, scoreAgainst, played, won, lost, drawn, tries, score = 0;
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 	/**
 	 * default constructor
