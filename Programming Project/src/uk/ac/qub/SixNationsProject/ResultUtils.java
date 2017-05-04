@@ -382,7 +382,13 @@ import java.util.Scanner;
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * This message takes a tournament and input from use via scanner and prints to screen the results of a particular
+	 * round within a given tournament.
+	 * @param tournament
+	 * @param scanner
+	 */
 	public static void promptToPrintRoundResults(Tournament tournament, Scanner scanner) {
 		int roundNumber = 0;
 		
@@ -506,6 +512,10 @@ import java.util.Scanner;
 		
 	}
 	
+	/**
+	 * Method accepts a year as an argument and returns the league table from the database
+	 * @param year
+	 */
 	public static void returnLeagueTableForYear(int year){
 		try (Connection conn = DbConnect.getRemoteConnection();){
 		
