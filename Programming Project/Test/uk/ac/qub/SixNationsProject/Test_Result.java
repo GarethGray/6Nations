@@ -5,13 +5,18 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author mattmcquillan
+ *
+ */
 
 public class Test_Result {
 
 	Team team1, team2;
 	int validScore1, validScore2, validTries1, validTries2;
 	
-	@SuppressWarnings("static-access")
+	
 	@Before
 	public void setUp() throws Exception {
 		

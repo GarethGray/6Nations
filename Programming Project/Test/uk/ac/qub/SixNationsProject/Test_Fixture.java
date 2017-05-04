@@ -14,7 +14,9 @@ import org.junit.Test;
  */
 public class Test_Fixture {
 
-	
+	/**
+	 * declaration of test vars
+	 */
 	int validFixtureNumber;
 	Team validTeam1;
 	Team validTeam2;
@@ -26,6 +28,9 @@ public class Test_Fixture {
 	@Before
 	public void setUp() throws Exception {
 		
+		/**
+		 * instantiation of common test variables
+		 */
 		validFixtureNumber = 1;
 		validTeam1 = new Team(TeamName.IRELAND);
 		validTeam2 = new Team(TeamName.ITALY);

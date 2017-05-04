@@ -14,6 +14,9 @@ import org.junit.Test;
 
 public class Test_Tournament {
 
+	/**
+	 * Declaration of testing vars
+	 */
 	private ArrayList<Fixture> fixtures;
 	private Tournament tournament;
 	private int year;
@@ -25,6 +28,9 @@ public class Test_Tournament {
 	@Before
 	public void setUp() throws Exception {
 		
+		/**
+		 * Instantiation of test data
+		 */
 		year = 2017;
 		fixtures = new ArrayList<Fixture>();
 		teams = new ArrayList<>();
