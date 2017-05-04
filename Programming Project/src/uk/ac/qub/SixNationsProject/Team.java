@@ -3,11 +3,10 @@
  */
 package uk.ac.qub.SixNationsProject;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
- * @author 40189322, 40084540
+ * @author 40189322, 40084540, 40022635
  *
  */
 public class Team {
