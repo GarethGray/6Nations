@@ -129,6 +129,8 @@ public final class ResultUtils {
 	 */
 	public static void fileToInsertResults(String fileName){
 		// Initializing variables
+		try (Connection conn = DbConnect.getRemoteConnection();){
+		
 		ArrayList<String> list = new ArrayList<String>();
 		int tournamentYear=0;
 		String fixtureID;
@@ -160,19 +162,29 @@ public final class ResultUtils {
 		tournamentYear = Integer.valueOf(list.get(0));
 		fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
 		
-		home.setName(TeamName.valueOf(list.get(3)));
 		home.setTries(Integer.valueOf(list.get(4)));
 		home.setScore(Integer.valueOf(list.get(5)));
 		
-		away.setName(TeamName.valueOf(list.get(6)));
 		away.setTries(Integer.valueOf(list.get(7)));
 		away.setScore(Integer.valueOf(list.get(8)));
+		
+		// finds team names for the selected fixture
+		Statement getTeamNames = conn.createStatement();
+		ResultSet rs = getTeamNames.executeQuery("SELECT TeamNameHome, TeamNameAway FROM Fixture WHERE FixtureID = "+fixtureID+";");
+		while (rs.next()){
+			home.setName(TeamName.valueOf(rs.getString("TeamNameHome")));
+			away.setName(TeamName.valueOf(rs.getString("TeamNameAway")));
+		}
+		getTeamNames.close();
 		
 		// inserts values into FixtureResult database
 		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
 		
 		// updates values in League table in database
 		updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	
@@ -499,6 +511,69 @@ public final class ResultUtils {
 		
 		
 	}
+	
+	public static void returnLeagueTableForYear(int year){
+		try (Connection conn = DbConnect.getRemoteConnection();){
+			int currentYear=0;
+			
+			// selects all rows from the League table and returns them in a table, sorted by Total Points descending 
+			Statement getLeagueTable = conn.createStatement();
+			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League WHERE Year = "+year+" ORDER BY TotalPoints DESC");
+			System.out.println("YEAR\t TEAM NAME\tWON \tDRAWN \tLOST \tGAMES PLAYED\t POINTS SCORED\t POINTS CONCEDED\tTRIES\t BONUS\t TOTAL POINTS");
+			System.out.println("-----------------------------------------------------------------------------------------------------------------------------------");
+			while(rs.next()){
+				System.out.format("%1s%13s%9s%9s%8s%13s%15s%18s%18s%10s%10s\n",rs.getString("Year"),rs.getString("TeamName"),
+					rs.getString("Won"),rs.getString("Drawn"),rs.getString("Lost"),
+					rs.getString("GamesPlayed"),rs.getString("PointsScored"),rs.getString("PointsConceded"),
+					rs.getString("Tries"),rs.getString("BonusPoints"),rs.getString("TotalPoints"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
+	
+	
+	/** 
+	 * This method returns the current League table from the database
+	 * 
+	 */
+	public static void returnLeagueTable(){
+		try (Connection conn = DbConnect.getRemoteConnection();){
+			int currentYear=0;
+			
+			// selects all rows from the League table and returns them in a table, sorted by Total Points descending 
+			Statement getLeagueTable = conn.createStatement();
+			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League ORDER BY Year DESC, TotalPoints DESC");
+			System.out.println("YEAR\t TEAM NAME\tWON \tDRAWN \tLOST \tGAMES PLAYED\t POINTS SCORED\t POINTS CONCEDED\tTRIES\t BONUS\t TOTAL POINTS");
+			System.out.println("-----------------------------------------------------------------------------------------------------------------------------------");
+			while(rs.next()){
+				
+				// if the year has changed, it adds a space between the years
+				if (Integer.valueOf(rs.getString("Year")) < currentYear){
+					System.out.println();
+				}
+				currentYear=Integer.valueOf(rs.getString("Year"));
+				
+				System.out.format("%1s%13s%9s%9s%8s%13s%15s%18s%18s%10s%10s\n",rs.getString("Year"),rs.getString("TeamName"),
+					rs.getString("Won"),rs.getString("Drawn"),rs.getString("Lost"),
+					rs.getString("GamesPlayed"),rs.getString("PointsScored"),rs.getString("PointsConceded"),
+					rs.getString("Tries"),rs.getString("BonusPoints"),rs.getString("TotalPoints"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Takes the user inputted values and checks to see if this can constitute a valid rugby score
