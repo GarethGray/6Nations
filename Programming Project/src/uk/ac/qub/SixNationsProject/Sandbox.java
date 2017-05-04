@@ -15,9 +15,8 @@ public class Sandbox {
 		 */
 		Tournament test;
 		Scanner scanner = new Scanner(System.in);
-		try {
+		try (Connection conn = DbConnect.getRemoteConnection();){
 			DbConnect.createDB();
-			Connection conn = DbConnect.getRemoteConnection();
 			System.out.println("Enter Year");
 			int year = scanner.nextInt();
 			test = new Tournament(year);
@@ -43,11 +42,9 @@ public class Sandbox {
 
 	}
 	public static void returnLeagueTable(){
-		Connection conn;
-		try {
-			conn = DbConnect.getRemoteConnection();
+		try (Connection conn = DbConnect.getRemoteConnection();){
 			Statement getLeagueTable = conn.createStatement();
-			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League GROUP BY Year ORDER BY TotalPoints DESC");
+			ResultSet rs = getLeagueTable.executeQuery("SELECT * FROM League ORDER BY TotalPoints DESC");
 			System.out.println("YEAR\t TEAM NAME\tWON \tDRAWN \tLOST \tGAMES PLAYED\t POINTS SCORED\t POINTS CONCEDED\tTRIES\t BONUS\t TOTAL POINTS");
 			System.out.println("-----------------------------------------------------------------------------------------------------------------------------------");
 			while(rs.next()){
