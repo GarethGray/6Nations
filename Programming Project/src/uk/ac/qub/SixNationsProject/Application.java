@@ -70,9 +70,9 @@ public class Application {
 			selectReturnLeagueMethod(menuChoice);
 			break;
 
-		// if the user selects Search Database TODO a method is called
+		// if the user selects Search Database  a method is called
 		case 5:
-			// TODO Kathy's search stuff
+			SearchDB.searchDatabase();
 			break;
 
 		// if the user selects Exit, the system displays a confirmation message
