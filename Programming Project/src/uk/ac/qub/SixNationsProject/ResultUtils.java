@@ -593,7 +593,7 @@ import java.util.Scanner;
 		}
 		
 		if (tries!=0){
-			if(score%tries == 1){
+			if(score-(5*tries) == 1){
 				validScore = false;
 			}
 		}
