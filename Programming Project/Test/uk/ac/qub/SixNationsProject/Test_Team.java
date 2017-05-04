@@ -37,9 +37,9 @@ public class Test_Team {
 		invalidScoreAgainst = 4;
 		validPlayed = 2;
 		invalidPlayed = 6;
-		validWon = 4;
+		validWon = 1;
 		invalidWon = 6;
-		validLost = 4;
+		validLost = 2;
 		invalidLost = 6;
 		validDrawn = 2;
 		invalidDrawn = 6;
@@ -147,7 +147,7 @@ public class Test_Team {
 		Team team  = new Team();
 		team.setScoreAgainst(validScoreAgainst);
 		team.addScoreAgainst(5);
-		assertEquals(team.getScoreAgainst(), (validScoreAgainst + 5));
+		assertEquals((validScoreAgainst + 5), team.getScoreAgainst());
 	}
 
 	@Test
@@ -196,7 +196,11 @@ public class Test_Team {
 	public void testGetSetValidDrawn() {
 		Team team  = new Team();
 		team.setDrawn(validDrawn);
-		assertEquals(team.getDrawn(), validDrawn);
+		team.setLost(validLost);
+		team.setWon(validWon);
+		int expected = team.getDrawn();
+		int actual = validDrawn;
+		assertEquals(expected, actual);
 	}
 	
 	@Test

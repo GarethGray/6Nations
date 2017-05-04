@@ -103,9 +103,9 @@ public class Team {
 	 * Setter for bonusPoints awarded to the team
 	 */
 	public void setBonusPoints(int bonusPoints) {
-		if(bonusPoints <= this.getBonusPoints()){
+		
 			this.bonusPoints = bonusPoints;
-			}
+			
 
 	}
 
@@ -132,9 +132,9 @@ public class Team {
 	 * Setter for total score the team has scored in all fixtures
 	 */
 	public void setScoreFor(int scoreFor) {
-		if((scoreFor != 1) && (scoreFor != 2) && (scoreFor != 4)){
+		
 			this.scoreFor = scoreFor;
-			}
+			
 	}
 
 	/**
@@ -161,10 +161,10 @@ public class Team {
 	 * Setter for total score that has been scored against this team in all
 	 * fixtures
 	 */
-	public void setScoreAgainst(int score) {
-		if((scoreAgainst != 1) && (scoreAgainst != 2) && (scoreAgainst != 4)){
+	public void setScoreAgainst(int scoreAgainst) {
+		
 			this.scoreAgainst = scoreAgainst;
-			}
+			
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class Team {
 	 *            The scoreAgainst to be added
 	 */
 	public void addScoreAgainst(int score) {
-		this.scoreAgainst = this.scoreAgainst + score;
+		this.setScoreAgainst(score + this.scoreAgainst);
 	}
 
 	/**
@@ -190,9 +190,9 @@ public class Team {
 	 * Setter for games played
 	 */
 	public void setPlayed(int played) {
-		if(played == ((this.getDrawn() + this.getWon() + this.getLost()))){
+		
 			this.played = played;
-			}
+			
 	}
 
 	/**
@@ -208,9 +208,9 @@ public class Team {
 	 * Setter for games won
 	 */
 	public void setWon(int won) {
-		if((won + this.getLost() + this.getDrawn()) == 5){
+		
 			this.won = won;
-			}
+			
 	}
 
 	/**
@@ -226,9 +226,9 @@ public class Team {
 	 * Setter for games lost
 	 */
 	public void setLost(int lost) {
-		if((lost + this.getWon() + this.getDrawn()) == 5){
+		
 			this.lost = lost;
-			}
+			
 	}
 
 	/**
@@ -244,9 +244,9 @@ public class Team {
 	 * Setter for games drawn
 	 */
 	public void setDrawn(int drawn) {
-		if((drawn + this.getWon() + this.getLost()) == 5){
+		
 			this.drawn = drawn;
-			}
+			
 	}
 
 	/**
