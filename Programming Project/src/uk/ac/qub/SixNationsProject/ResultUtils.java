@@ -121,10 +121,16 @@ public final class ResultUtils {
 	
 	
 	
+	/**
+	 * This method reads in the name of a file, then reads from that file
+	 * and stores each line as a String in an array. Then, it inputs the values from
+	 * the file into the database to insert to FixtureResults
+	 * @param fileName
+	 */
 	public static void fileToInsertResults(String fileName){
-		//initialising variables
+		// Initializing variables
 		ArrayList<String> list = new ArrayList<String>();
-		int year=0;
+		int tournamentYear=0;
 		String fixtureID;
 		Team home = new Team();
 		Team away = new Team();
@@ -151,9 +157,19 @@ public final class ResultUtils {
 		}
 		
 		// setting each variable as the correct value in the file
-		year = Integer.valueOf(list.get(0));
-		fixtureID = String.valueOf(year)+list.get(1)+list.get(2);
+		tournamentYear = Integer.valueOf(list.get(0));
+		fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
 		
+		home.setName(TeamName.valueOf(list.get(3)));
+		home.setTries(Integer.valueOf(list.get(4)));
+		home.setScore(Integer.valueOf(list.get(5)));
+		
+		away.setName(TeamName.valueOf(list.get(6)));
+		away.setTries(Integer.valueOf(list.get(7)));
+		away.setScore(Integer.valueOf(list.get(8)));
+		
+		// inserts values into database
+		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
 	}
 	
 	
