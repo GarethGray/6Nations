@@ -60,7 +60,7 @@ public class Application {
 			
 		// if the user selects Insert Match Results, they will be asked how they would prefer to input the results
 		case 2:
-			selectResultInputMethod(menuChoice);
+			selectResultInputMethod();
 			break;
 
 		// if the user selects View Match Results, they are asked to select the match to view
@@ -131,10 +131,11 @@ public class Application {
 	 * If they want to update them from a file, it calls ResultUtils.fileToInsertResults.
 	 * @param menuChoice
 	 */
-	public static void selectResultInputMethod(Scanner menuChoice) {
+	public static void selectResultInputMethod() {
+		Scanner inputMethodChoice = new Scanner(System.in);
 		int choice;
 		System.out.println("Would you like to input your scores via...\n" + "1. manual input\n" + "2. file input\n");
-		choice = menuChoice.nextInt();
+		choice = inputMethodChoice.nextInt();
 		// if the user selects manual input, the method calls
 		// ResultUtils.promptToInsertResults()
 		if (choice == 1) {
@@ -144,12 +145,13 @@ public class Application {
 			// this is passed into ResultUtils.fileToInsertResults()
 		} else if (choice == 2) {
 			System.out.println("What is the name of your file? (Please include file extension, eg .txt)");
-			String fileName=menuChoice.next();
+			String fileName=inputMethodChoice.next();
 			ResultUtils.fileToInsertResults(fileName);
 		} else {
 			System.out.println("That was not an option. Returning to main menu...");
 			// TODO return to main menu?
 		}
+		inputMethodChoice.close();
 	}
 
 	
