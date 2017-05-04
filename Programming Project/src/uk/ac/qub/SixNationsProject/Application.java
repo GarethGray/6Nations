@@ -195,6 +195,7 @@ public class Application {
 			ResultSet checkYear = checkYearExists.executeQuery("Select Year from Fixture where year = " + year + ";");
 			if (!checkYear.next()){
 				System.out.println("Six Nations " + year + " created. Fixtures have been generated.");
+				@SuppressWarnings("unused")
 				Tournament newTourn = new Tournament(year);
 			} else {
 				System.out.println("This tournament already exists in the database. Returning to main menu.");

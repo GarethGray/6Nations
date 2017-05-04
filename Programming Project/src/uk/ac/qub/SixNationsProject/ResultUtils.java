@@ -44,6 +44,25 @@ import java.util.Scanner;
 	
 	
 	
+	public static boolean fixtureExists(String fixtureID){
+		try (Connection conn = DbConnect.getRemoteConnection()){
+			Statement checkFixtureExists = conn.createStatement();
+			ResultSet checkFixture = checkFixtureExists.executeQuery("SELECT FixtureID from FixtureResult where FixtureID = " + fixtureID + ";");
+			if (!checkFixture.next()){
+				return false;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	
+	
+	
+	
+	
 	/**
 	 * This method asks the user to input the year, round and fixture to update scores for.
 	 * The method then asks for the tries and score for each round in the fixture.
@@ -74,43 +93,47 @@ import java.util.Scanner;
 			// asks user to select fixture to input scores into
 			fixtureNumber = promptForFixtureNumber(scanner, fixtureNumber);
 			
-			// uses user-inputed values to select HOME team from database, prints "Home team: TEAM"
-			Statement getTeams = conn.createStatement();
-			teamHome = getHomeTeamName(tournamentYear, roundNumber, fixtureNumber, teamHome, getTeams);
-
-			// uses user-inputed values to select AWAY team from database, prints "Away team: TEAM"
-			teamAway = getAwayTeamName(tournamentYear, roundNumber, fixtureNumber, teamAway, getTeams);
-			
-
-			// asks user to input scores for each team
-			System.out.println("\n\nPlease enter scores:");
-			System.out.println(teamHome + " tries:");
-			teamHTries = scanner.nextInt();
-			System.out.println(teamHome + " score:");
-			teamHScore = scanner.nextInt();
-
-			System.out.println(teamAway + " tries:");
-			teamATries = scanner.nextInt();
-			System.out.println(teamAway + " score:");
-			teamAScore = scanner.nextInt();
-			
-			// checks the values the user has entered
-			if(validateScore(teamHTries, teamHScore) && validateScore(teamATries, teamAScore)) {
-			
-			Team home = new Team(TeamName.valueOf(teamHome));
-			Team away = new Team(TeamName.valueOf(teamAway));
-			home.setTries(teamHTries);
-			home.setScore(teamHScore);
-			away.setTries(teamATries);
-			away.setScore(teamAScore);
+			// creates fixture ID
 			fixtureID = tournamentYear+""+roundNumber+""+fixtureNumber;
-					
-			insertResultsToDatabase(tournamentYear, fixtureID, home, away);
 			
-			// based on the results of the selected fixture, this method then updates the League table
-			updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
+			if(fixtureExists(fixtureID)){
+				// uses user-inputed values to select HOME team from database, prints "Home team: TEAM"
+				Statement getTeams = conn.createStatement();
+				teamHome = getHomeTeamName(tournamentYear, roundNumber, fixtureNumber, teamHome, getTeams);
+
+				// uses user-inputed values to select AWAY team from database, prints "Away team: TEAM"
+				teamAway = getAwayTeamName(tournamentYear, roundNumber, fixtureNumber, teamAway, getTeams);
+			
+
+				// asks user to input scores for each team
+				System.out.println("\n\nPlease enter scores:");
+				System.out.println(teamHome + " tries:");
+				teamHTries = scanner.nextInt();
+				System.out.println(teamHome + " score:");
+				teamHScore = scanner.nextInt();
+
+				System.out.println(teamAway + " tries:");
+				teamATries = scanner.nextInt();
+				System.out.println(teamAway + " score:");
+				teamAScore = scanner.nextInt();
+			
+				// checks the values the user has entered
+				if(validateScore(teamHTries, teamHScore) && validateScore(teamATries, teamAScore)) {
+			
+					Team home = new Team(TeamName.valueOf(teamHome));
+					Team away = new Team(TeamName.valueOf(teamAway));
+					home.setTries(teamHTries);
+					home.setScore(teamHScore);
+					away.setTries(teamATries);
+					away.setScore(teamAScore);
+					
+					insertResultsToDatabase(tournamentYear, fixtureID, home, away);
+			
+					// based on the results of the selected fixture, this method then updates the League table
+					updateLeague(tournamentYear, teamHome, teamAway, teamHTries, teamHScore, teamATries, teamAScore);
 			} else {
 				System.out.println("The score you have entered cannot be valid. Please check it and try again.");
+			}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,26 +185,28 @@ import java.util.Scanner;
 		tournamentYear = Integer.valueOf(list.get(0));
 		fixtureID = String.valueOf(tournamentYear)+list.get(1)+list.get(2);
 		
-		home.setTries(Integer.valueOf(list.get(4)));
-		home.setScore(Integer.valueOf(list.get(5)));
+		if (fixtureExists(fixtureID)){
+			home.setTries(Integer.valueOf(list.get(4)));
+			home.setScore(Integer.valueOf(list.get(5)));
 		
-		away.setTries(Integer.valueOf(list.get(7)));
-		away.setScore(Integer.valueOf(list.get(8)));
+			away.setTries(Integer.valueOf(list.get(7)));
+			away.setScore(Integer.valueOf(list.get(8)));
 		
-		// finds team names for the selected fixture
-		Statement getTeamNames = conn.createStatement();
-		ResultSet rs = getTeamNames.executeQuery("SELECT TeamNameHome, TeamNameAway FROM Fixture WHERE FixtureID = "+fixtureID+";");
-		while (rs.next()){
-			home.setName(TeamName.valueOf(rs.getString("TeamNameHome")));
-			away.setName(TeamName.valueOf(rs.getString("TeamNameAway")));
+			// finds team names for the selected fixture
+			Statement getTeamNames = conn.createStatement();
+			ResultSet rs = getTeamNames.executeQuery("SELECT TeamNameHome, TeamNameAway FROM Fixture WHERE FixtureID = "+fixtureID+";");
+			while (rs.next()){
+				home.setName(TeamName.valueOf(rs.getString("TeamNameHome")));
+				away.setName(TeamName.valueOf(rs.getString("TeamNameAway")));
+			}
+			getTeamNames.close();
+		
+			// inserts values into FixtureResult database
+			insertResultsToDatabase(tournamentYear, fixtureID, home, away);
+		
+			// updates values in League table in database
+			updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
 		}
-		getTeamNames.close();
-		
-		// inserts values into FixtureResult database
-		insertResultsToDatabase(tournamentYear, fixtureID, home, away);
-		
-		// updates values in League table in database
-		updateLeague(tournamentYear, String.valueOf(home.getName()), String.valueOf(away.getName()), home.getTries(), home.getScore(), away.getTries(), away.getScore());
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
