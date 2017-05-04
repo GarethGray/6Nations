@@ -24,14 +24,13 @@ public class Application {
 //		menu();
 //	}
 
-	@SuppressWarnings("unused")
 	public static void menu() {
 		Scanner menuChoice = new Scanner(System.in);
 		int choice=0;
 		while (choice!=6){
 		choice = 0;
 
-		System.out.println("Welcome to the Six Nations! Please select an option from the menu:\n");
+		System.out.println("\n\nWelcome to the Six Nations! Please select an option from the menu:\n");
 
 		System.out.println("1. Create new tournament\n" + "2. Insert match results\n" + "3. View match results\n"
 				+ "4. View league table\n" + "5. Search database\n" + "6. Exit\n");
