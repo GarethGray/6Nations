@@ -1,6 +1,10 @@
 
 package uk.ac.qub.SixNationsProject;
 
+/**
+ * @author Aine Kane
+ * @author Laura McCormick
+ */
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -11,6 +15,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DbConnect {
+	
+	/**
+	 * This method sets up the database, establishing the tables, their fields, and their keys that is used in the
+	 * 6Nations Programme
+	 * @throws SQLException
+	 */
 
 	public static void createDB() throws SQLException {
 
@@ -105,7 +115,11 @@ public class DbConnect {
 		}
 
 	}
-
+/**
+ * This method establishes the connection used by the database.
+ * @return The connection to the database
+ * @throws SQLException
+ */
 	public static Connection getRemoteConnection() throws SQLException {
 
 		String dbName = "RugbyGenerator";
