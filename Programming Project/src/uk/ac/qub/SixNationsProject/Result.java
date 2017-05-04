@@ -22,6 +22,20 @@ public class Result {
 	public Result() {
 	}
 
+	// Sets the scores of the result object, then calculates and sets the points
+	// the teams should receive
+	// @param team1 Array of team 1's tries and score
+	// @param team2 Array of team 2's tries and score
+	// public void setScores(int[] team1, int[] team2) {
+	// this.team1Tries = team1[0];
+	// this.team1Score = team1[1];
+	//
+	// this.team2Tries = team2[0];
+	// this.team2Score = team2[1];
+	//
+	// calculatePoints();
+	// }
+
 	public static int[] calculateBonusPoints(String teamHome, int teamHomeScore, int teamHomeTries, String teamAway,
 			int teamAwayScore, int teamAwayTries) {
 		int[] matchPoints = new int[4];
