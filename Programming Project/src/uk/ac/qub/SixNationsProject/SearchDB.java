@@ -26,7 +26,10 @@ public class SearchDB {
 
 		// menu continues unless exit is selected
 		while (option != 5) {
-			// declare var
+			
+			/**
+			 *  declare vars
+			 */
 			String searchTerm;
 
 			// sets up menu for user
