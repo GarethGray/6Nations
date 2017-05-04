@@ -37,8 +37,8 @@ public class Application {
 
 		// user inputs values until a valid value is found
 		while (choice < 1 || choice > 6) {
+			System.out.println("Please input an integer between 1 and 6.");
 			if (menuChoice.hasNextInt()==false){
-				System.out.println("Please input an integer between 1 and 6.");
 				menuChoice.next();
 			} else {
 				choice = menuChoice.nextInt();
@@ -75,9 +75,9 @@ public class Application {
 			selectReturnLeagueMethod(menuChoice);
 			break;
 
-		// if the user selects Search Database TODO a method is called
+		// if the user selects Search Database, SearchDB.searchDatabase is called
 		case 5:
-			// TODO Kathy's search stuff
+			SearchDB.searchDatabase();
 			break;
 
 		// if the user selects Exit, the system displays a confirmation message
@@ -116,8 +116,7 @@ public class Application {
 		} else if (choice == 2) {
 			ResultUtils.returnLeagueTable();
 		} else {
-			System.out.println("That was not an option. Returning to main menu...");
-			// TODO return to main menu?
+			System.out.println("Invalid option. Returning to main menu...");
 		}
 	}
 
