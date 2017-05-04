@@ -43,8 +43,7 @@ public final class ResultUtils {
 	 * @param scanner
 	 */
 	public static void promptToInsertResults(Scanner scanner) {
-		try {
-			Connection conn = DbConnect.getRemoteConnection();
+		try (Connection conn = DbConnect.getRemoteConnection();){
 			int tournamentYear = 0;
 			int roundNumber = 0;
 			int numberOfRounds = 5;
@@ -241,8 +240,7 @@ public final class ResultUtils {
 	 */
 	public static void getResultForFixtureDB(Scanner scanner) {
 
-		try {
-			Connection conn = DbConnect.getRemoteConnection();
+		try (Connection conn = DbConnect.getRemoteConnection();){
 
 			String tournamentYear = "0";
 			String roundNumber = "0";
@@ -337,8 +335,7 @@ public final class ResultUtils {
 		int teamAwayDrawn=0;
 		int teamAwayLost=0;
 		
-		try {
-			Connection conn = DbConnect.getRemoteConnection();
+		try (Connection conn = DbConnect.getRemoteConnection();){
 			Statement updateLeague = conn.createStatement();
 			
 			// calculateBonusPoints returns an int array containing the values for bonus points and match points for both teams

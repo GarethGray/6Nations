@@ -14,9 +14,8 @@ public class DbConnect {
 
 	public static void createDB() throws SQLException {
 
-		Connection conn = getRemoteConnection();
 
-		try {
+		try (Connection conn = DbConnect.getRemoteConnection();){
 
 			// Create a table and write two rows
 
@@ -88,6 +87,10 @@ public class DbConnect {
 			setupStatement.executeBatch();
 
 			setupStatement.close();
+			
+			// adds all teams to the database
+			
+			addTeams();
 
 		} catch (SQLException ex) {
 
@@ -98,20 +101,6 @@ public class DbConnect {
 			System.out.println("SQLState: " + ex.getSQLState());
 
 			System.out.println("VendorError: " + ex.getErrorCode());
-
-		} finally {
-
-			System.out.println("Closing the connection.");
-
-			if (conn != null)
-
-				try {
-
-					conn.close();
-
-				} catch (SQLException ignore) {
-
-				}
 
 		}
 
@@ -171,8 +160,7 @@ public class DbConnect {
 				teams.add(italy);
 
 				// this populates the database with the teams
-				try {
-					Connection conn = DbConnect.getRemoteConnection();
+				try (Connection conn = DbConnect.getRemoteConnection();){
 					Statement insertTeam = conn.createStatement();
 					for (int i = 0; i < teams.size(); i++) {
 						insertTeam.addBatch("INSERT INTO Team Values('" + teams.get(i).getName() + "');");
