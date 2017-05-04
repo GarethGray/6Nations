@@ -24,12 +24,6 @@ import java.util.Scanner;
 
 	public final class ResultUtils {
 
-//	public static void setResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber, int[] team1Score,
-//			int[] team2Score) {
-//		Result result = getResultForFixture(tournament, roundNumber, fixtureNumber);
-//		//result.setScores(team1Score, team2Score);
-//	}
-
 	public static Result getResultForFixture(Tournament tournament, int roundNumber, int fixtureNumber) {
 		ArrayList<Round> rounds = tournament.getRounds();
 		Round round = rounds.get(roundNumber - 1);

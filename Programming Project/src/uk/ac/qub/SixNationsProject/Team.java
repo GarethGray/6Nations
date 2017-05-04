@@ -6,7 +6,9 @@ package uk.ac.qub.SixNationsProject;
 
 
 /**
- * @author 40189322, 40084540, 40022635
+ * @author Gareth Gray
+ * @author Grainne Jennings
+ * @author Matt McQuillan
  *
  */
 public class Team {
