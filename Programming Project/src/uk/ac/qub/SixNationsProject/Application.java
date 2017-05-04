@@ -16,24 +16,23 @@ import java.util.Scanner;
  */
 public class Application {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		menu();
-	}
+//	/**
+//	 * @param args
+//	 */
+//	public static void main(String[] args) {
+//
+//		menu();
+//	}
 
 	@SuppressWarnings("unused")
 	public static void menu() {
-		Tournament tournament = null;
 		Scanner menuChoice = new Scanner(System.in);
 		int choice = 0;
 
 		System.out.println("Welcome to the Six Nations! Please select an option from the menu:\n");
 
 		System.out.println("1. Create new tournament\n" + "2. Insert match results\n" + "3. View match results\n"
-				+ "4. View league table\n" + "5. Exit");
+				+ "4. View league table\n" + "5. Search database\n" + "6. Exit\n");
 
 		// user inputs values until a valid value is found
 		while (choice < 1 || choice > 5) {
@@ -45,56 +44,41 @@ public class Application {
 
 		// system uses a switch statement to execute their choice
 		switch (choice) {
-		// if the user selects Create New Tournament, the method Application.Tournament is called
+		
+		// if the user selects Create New Tournament, the method
+		// Application.Tournament is called
 		// and they are prompted to insert the year for a new tournament
 		case 1:
-			Scanner scan = new Scanner(System.in);
-			System.out.println("Which year is the tournament in?");
-			int year = scan.nextInt();
-			tournament = new Tournament(year);
-			tournament.printTournamentResults();
-			break;
-			
-		// if the user selects Insert Match Results, they will be asked
-		// how they would prefer to input the results
+			Tournament tournament = createTournament();
+
+		// if the user selects Insert Match Results, they will be asked how they would prefer to input the results
 		case 2:
-			if (tournament != null) {
-				System.out.println(
-						"Would you like to input your scores via...\n" + "1. manual input\n" + "2. file input\n");
-				choice = menuChoice.nextInt();
-				// if the user selects manual input, the method calls ResultUtils.promptToInsertResults()
-				if (choice == 1) {
-					ResultUtils.promptToInsertResults(new Scanner(System.in));
-				// if the user selects input from a file, they are asked the name of the file
-				// this is passed into UploadResultsTestFile.uploadResults()
-				} else if (choice == 2) {
-					System.out.println("What is the name of your file?");
-					UploadResultsTestFile.uploadResults(tournament, menuChoice.nextLine());
-				} else {
-					System.out.println("That was not an option. Prepare to die.");
-				}
-			} else {
-				System.out.println("No tournament selected. You must create a tournament before proceeding.");
-			}
+			selectResultInputMethod(menuChoice);
 			break;
-			
+
 		// if the user selects View Match Results, they are asked to select the match to view
-		// results for and this is executed by //TODO which method?
+		// results for and this is executed by ResultUtils.getResultsForFixtureDB
 		case 3:
-			// TODO return match results from database
+			ResultUtils.getResultForFixtureDB(menuChoice);
 			break;
-			
-		// if the user selects View League Table, the league table is retrieved from the database and displayed
+
+		// if the user selects View League Table, the league table is retrieved
+		// from the database and displayed
 		case 4:
-			// TODO league table logic!
-			// TODO return league table from database
+			selectReturnLeagueMethod(menuChoice);
 			break;
-		
-		// if the user selects Exit, the system displays a confirmation message and ends
+
+		// if the user selects Search Database TODO a method is called
 		case 5:
+			// TODO Kathy's search stuff
+			break;
+
+		// if the user selects Exit, the system displays a confirmation message
+		// and ends
+		case 6:
 			System.out.println("Exiting Six Nations program. Goodbye.");
 			break;
-		
+
 		default:
 			System.out.println("Unrecognised input, program ending.");
 			break;
@@ -103,8 +87,71 @@ public class Application {
 		menuChoice.close();
 	}
 
+
+
+
+
+	/**
+	 * This method asks the user which version of the League table they would like to view
+	 * @param menuChoice
+	 */
+	public static void selectReturnLeagueMethod(Scanner menuChoice) {
+		int choice;
+		System.out.println("Would you like to view...\n" + "1. the league table for a certain year\n" + "2. all league tables for all recorded years\n");
+		choice = menuChoice.nextInt();
+		// if the user selects manual input, the method calls
+		// ResultUtils.promptToInsertResults()
+		if (choice == 1) {
+			System.out.println("Which year would you like to view the league for?");
+			choice = menuChoice.nextInt();
+			ResultUtils.returnLeagueTableForYear(choice);
+			// if the user selects all league tables for all recorded years, all results from League are printed from the database
+		} else if (choice == 2) {
+			ResultUtils.returnLeagueTable();
+		} else {
+			System.out.println("That was not an option. Returning to main menu...");
+			// TODO return to main menu?
+		}
+	}
+
+	
+	
+	
+	
+	/**
+	 * This method prompts the user for the method by which they would like to input match results.
+	 * If they want to input them manually, it calls ResultUtils.promptToInsertResults.
+	 * If they want to update them from a file, it calls ResultUtils.fileToInsertResults.
+	 * @param menuChoice
+	 */
+	public static void selectResultInputMethod(Scanner menuChoice) {
+		int choice;
+		System.out.println("Would you like to input your scores via...\n" + "1. manual input\n" + "2. file input\n");
+		choice = menuChoice.nextInt();
+		// if the user selects manual input, the method calls
+		// ResultUtils.promptToInsertResults()
+		if (choice == 1) {
+			ResultUtils.promptToInsertResults(new Scanner(System.in));
+			// if the user selects input from a file, they are asked the
+			// name of the file
+			// this is passed into ResultUtils.fileToInsertResults()
+		} else if (choice == 2) {
+			System.out.println("What is the name of your file? (Please include file extension, eg .txt)");
+			String fileName=menuChoice.next();
+			ResultUtils.fileToInsertResults(fileName);
+		} else {
+			System.out.println("That was not an option. Returning to main menu...");
+			// TODO return to main menu?
+		}
+	}
+
+	
+	
+	
+	
 	/**
 	 * This method creates a new Tournament based on the year inputed by the user
+	 * 
 	 * @author Laura McCormick
 	 * @return Tournament
 	 */
@@ -135,6 +182,5 @@ public class Application {
 		ct.close();
 		return new Tournament(year);
 	}
-
 
 }
