@@ -1,5 +1,13 @@
 package uk.ac.qub.SixNationsProject;
-
+/**
+ * 
+ * 
+ * @author Laura McCormick
+ * @author Matt McQuillan
+ * @author Gareth Gray
+ * @author Matt McQuillan
+ *
+ */
 public class Fixture {
 
 	private int fixtureNumber;

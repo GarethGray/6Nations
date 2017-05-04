@@ -1,5 +1,13 @@
 package uk.ac.qub.SixNationsProject;
 
+
+/**
+ * 
+ * @author Laura McCormick
+ * @author Matt McQuillan
+ * @author Gareth Gray
+ *
+ */
 public class Result {
 
 	// Tries, score and points for team 1 from the fixture
